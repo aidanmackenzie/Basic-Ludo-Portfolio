@@ -19,11 +19,10 @@ class Board:
                                       '42': [], '43': [], '44': [], '45': [], '46': [], '47': [], '48': [], '49': [],
                                       '50': [], '51': [], '52': [], '53': [], '54': [], '55': [], '56': []}
 
-        self._a_board_spots = {"H": [], "R": [], "A1": [], "A2": [], "A3": [], "A4": [], "A5": [], "A6": []}
-        self._b_board_spots = {"H": [], "R": [], "B1": [], "B2": [], "B3": [], "B4": [], "B5": [], "B6": []}
-        self._c_board_spots = {"H": [], "R": [], "C1": [], "C2": [], "C3": [], "C4": [], "C5": [], "C6": []}
-        self._d_board_spots = {"H": [], "R": [], "D1": [], "D2": [], "D3": [], "D4": [], "D5": [], "D6": []}
-        self._winning_spot = {"E": []}
+        self._a_board_spots = {"H": [], "R": [], "A1": [], "A2": [], "A3": [], "A4": [], "A5": [], "A6": [], "E": []}
+        self._b_board_spots = {"H": [], "R": [], "B1": [], "B2": [], "B3": [], "B4": [], "B5": [], "B6": [], "E": []}
+        self._c_board_spots = {"H": [], "R": [], "C1": [], "C2": [], "C3": [], "C4": [], "C5": [], "C6": [], "E": []}
+        self._d_board_spots = {"H": [], "R": [], "D1": [], "D2": [], "D3": [], "D4": [], "D5": [], "D6": [], "E": []}
 
     def get_general_board_spots(self):
         """Returns the general board spots and what is present on each."""
@@ -45,10 +44,6 @@ class Board:
         """Returns the unique board spots of player D and what is present on each."""
         return self._d_board_spots
 
-    def get_winning_spot(self):
-        """Returns the winning spot and what is present on it."""
-        return self._winning_spot
-
     def general_add_token(self, spot_value, token_object):
         """Adds a token to a general board spot."""
         self._general_board_spots[spot_value].append(token_object)
@@ -60,6 +55,9 @@ class Board:
 
         elif spot_value == "0":
             self._a_board_spots["R"].append(token_object)
+
+        elif spot_value == "57":
+            self._a_board_spots["E"].append(token_object)
 
         else:
             inner_spot_value = f"A{spot_value - 50}"
@@ -73,6 +71,9 @@ class Board:
         elif spot_value == "0":
             self._b_board_spots["R"].append(token_object)
 
+        elif spot_value == "57":
+            self._b_board_spots["E"].append(token_object)
+
         else:
             inner_spot_value = f"B{spot_value - 50}"
             self._b_board_spots[inner_spot_value].append(token_object)
@@ -84,6 +85,9 @@ class Board:
 
         elif spot_value == "0":
             self._c_board_spots["R"].append(token_object)
+
+        elif spot_value == "57":
+            self._c_board_spots["E"].append(token_object)
 
         else:
             inner_spot_value = f"C{spot_value - 50}"
@@ -97,17 +101,12 @@ class Board:
         elif spot_value == "0":
             self._d_board_spots["R"].append(token_object)
 
+        elif spot_value == "57":
+            self._d_board_spots["E"].append(token_object)
+
         else:
             inner_spot_value = f"D{spot_value - 50}"
             self._d_board_spots[inner_spot_value].append(token_object)
-
-    def winning_add_token(self, spot_value, token_object):
-        """Adds a token to the winning board spot."""
-        if spot_value == "57":
-            self._winning_spot["E"].append(token_object)
-
-        # NEED TO COME BACK AFTER CODING TOKENS/PLAYERS TO CODE BOUNCE BACK IF OVER "57" FOR SPOT_VALUE
-        # COULD POSSIBLY DO IT ANOTHER WAY. TO BE DETERMINED
 
     def general_remove_token(self, token_object):
         """Removes a token from a general board spot."""
