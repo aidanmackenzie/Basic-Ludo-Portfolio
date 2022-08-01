@@ -6,8 +6,9 @@
 # current position of their two tokens, and the current state of the player. It may contain additional information.
 # Whereas the LudoGame object contains information about the players and information about the board.
 
+
 class Board:
-    """Represents the gameboard."""
+    """Represents the game board."""
 
     def __init__(self):
         self._general_board_spots = {'1': [], '2': [], '3': [], '4': [], '5': [], '6': [], '7': [], '8': [], '9': [],
@@ -18,8 +19,122 @@ class Board:
                                       '42': [], '43': [], '44': [], '45': [], '46': [], '47': [], '48': [], '49': [],
                                       '50': [], '51': [], '52': [], '53': [], '54': [], '55': [], '56': []}
 
-        self._a_board_spots = {"A1": [], "A2": [], "A3": [], "A4": [], "A5": [], "A6": []}
-        self._b_board_spots = {"B1": [], "B2": [], "B3": [], "B4": [], "B5": [], "B6": []}
-        self._c_board_spots = {"C1": [], "C2": [], "C3": [], "C4": [], "C5": [], "C6": []}
-        self._d_board_spots = {"D1": [], "D2": [], "D3": [], "D4": [], "D5": [], "D6": []}
+        self._a_board_spots = {"H": [], "R": [], "A1": [], "A2": [], "A3": [], "A4": [], "A5": [], "A6": []}
+        self._b_board_spots = {"H": [], "R": [], "B1": [], "B2": [], "B3": [], "B4": [], "B5": [], "B6": []}
+        self._c_board_spots = {"H": [], "R": [], "C1": [], "C2": [], "C3": [], "C4": [], "C5": [], "C6": []}
+        self._d_board_spots = {"H": [], "R": [], "D1": [], "D2": [], "D3": [], "D4": [], "D5": [], "D6": []}
         self._winning_spot = {"E": []}
+
+    def get_general_board_spots(self):
+        """Returns the general board spots and what is present on each."""
+        return self._general_board_spots
+
+    def get_a_board_spots(self):
+        """Returns the unique board spots of player A and what is present on each."""
+        return self._a_board_spots
+
+    def get_b_board_spots(self):
+        """Returns the unique board spots of player B and what is present on each."""
+        return self._b_board_spots
+
+    def get_c_board_spots(self):
+        """Returns the unique board spots of player C and what is present on each."""
+        return self._c_board_spots
+
+    def get_d_board_spots(self):
+        """Returns the unique board spots of player D and what is present on each."""
+        return self._d_board_spots
+
+    def get_winning_spot(self):
+        """Returns the winning spot and what is present on it."""
+        return self._winning_spot
+
+    def general_add_token(self, spot_value, token_object):
+        """Adds a token to a general board spot."""
+        self._general_board_spots[spot_value].append(token_object)
+
+    def a_add_token(self, spot_value, token_object):
+        """Adds a token to an A player board spot."""
+        if spot_value == "-1":
+            self._a_board_spots["H"].append(token_object)
+
+        elif spot_value == "0":
+            self._a_board_spots["R"].append(token_object)
+
+        else:
+            inner_spot_value = f"A{spot_value - 50}"
+            self._a_board_spots[inner_spot_value].append(token_object)
+
+    def b_add_token(self, spot_value, token_object):
+        """Adds a token to a B player board spot."""
+        if spot_value == "-1":
+            self._b_board_spots["H"].append(token_object)
+
+        elif spot_value == "0":
+            self._b_board_spots["R"].append(token_object)
+
+        else:
+            inner_spot_value = f"B{spot_value - 50}"
+            self._b_board_spots[inner_spot_value].append(token_object)
+
+    def c_add_token(self, spot_value, token_object):
+        """Adds a token to a C player board spot."""
+        if spot_value == "-1":
+            self._c_board_spots["H"].append(token_object)
+
+        elif spot_value == "0":
+            self._c_board_spots["R"].append(token_object)
+
+        else:
+            inner_spot_value = f"C{spot_value - 50}"
+            self._c_board_spots[inner_spot_value].append(token_object)
+
+    def d_add_token(self, spot_value, token_object):
+        """Adds a token to a D player board spot."""
+        if spot_value == "-1":
+            self._d_board_spots["H"].append(token_object)
+
+        elif spot_value == "0":
+            self._d_board_spots["R"].append(token_object)
+
+        else:
+            inner_spot_value = f"D{spot_value - 50}"
+            self._d_board_spots[inner_spot_value].append(token_object)
+
+    def winning_add_token(self, spot_value, token_object):
+        """Adds a token to the winning board spot."""
+        if spot_value == "57":
+            self._winning_spot["E"].append(token_object)
+
+        # NEED TO COME BACK AFTER CODING TOKENS/PLAYERS TO CODE BOUNCE BACK IF OVER "57" FOR SPOT_VALUE
+        # COULD POSSIBLY DO IT ANOTHER WAY. TO BE DETERMINED
+
+    def general_remove_token(self, token_object):
+        """Removes a token from a general board spot."""
+        for key in self._general_board_spots:
+            if token_object in self._general_board_spots[key]:
+                self._general_board_spots[key].remove(token_object)
+
+    def a_remove_token(self, token_object):
+        """Removes a token from an A board spot"""
+        for key in self._a_board_spots:
+            if token_object in self._a_board_spots[key]:
+                self._a_board_spots[key].remove(token_object)
+
+    def b_remove_token(self, token_object):
+        """Removes a token from a B board spot"""
+        for key in self._b_board_spots:
+            if token_object in self._b_board_spots[key]:
+                self._b_board_spots[key].remove(token_object)
+
+    def c_remove_token(self, token_object):
+        """Removes a token from a C board spot"""
+        for key in self._c_board_spots:
+            if token_object in self._c_board_spots[key]:
+                self._c_board_spots[key].remove(token_object)
+
+    def d_remove_token(self, token_object):
+        """Removes a token from a D board spot"""
+        for key in self._d_board_spots:
+            if token_object in self._d_board_spots[key]:
+                self._d_board_spots[key].remove(token_object)
