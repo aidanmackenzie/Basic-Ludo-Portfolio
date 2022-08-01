@@ -137,3 +137,18 @@ class Board:
         for key in self._d_board_spots:
             if token_object in self._d_board_spots[key]:
                 self._d_board_spots[key].remove(token_object)
+
+
+class Tokens:
+    """Represents the player tokens."""
+    def __init__(self, player_position, token_letter):
+
+
+
+
+class Player:
+    """Represents a player."""
+
+
+class LudoGame:
+    """Represents the game as played."""
