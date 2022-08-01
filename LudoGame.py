@@ -141,14 +141,15 @@ class Board:
 
 class Tokens:
     """Represents the player tokens."""
-    def __init__(self, player_position, token_letter):
+    # Objects that get moved around Board object. Should hold token name and whose they are. Possibly hold spot?
 
 
 
 
 class Player:
     """Represents a player."""
-
+    # Determines if player won, their start and end spot, current spots for tokens, and what position they chose.
 
 class LudoGame:
     """Represents the game as played."""
+    #Where the game is actually played. Makes local objects?
