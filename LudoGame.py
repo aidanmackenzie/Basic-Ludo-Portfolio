@@ -11,6 +11,7 @@ class Board:
     """Represents the game board."""
 
     def __init__(self):
+        """Creates a game board."""
         self._general_board_spots = {'1': [], '2': [], '3': [], '4': [], '5': [], '6': [], '7': [], '8': [], '9': [],
                                       '10': [], '11': [], '12': [], '13': [], '14': [], '15': [], '16': [], '17': [],
                                       '18': [], '19': [], '20': [], '21': [], '22': [], '23': [], '24': [], '25': [],
@@ -141,7 +142,24 @@ class Board:
 
 class Tokens:
     """Represents the player tokens."""
-    # Objects that get moved around Board object. Should hold token name and whose they are. Possibly hold spot?
+
+    def __init__(self, token_name, player_position):
+        """Creates a Tokens object."""
+        self._token_name = token_name
+        self._player_position = player_position
+        self._token_location = "-1"
+
+    def get_token_name(self):
+        """Returns the token name, p or q."""
+        return self._token_name
+
+    def get_player_position(self):
+        """Returns the player position of the token in question"""
+        return self._player_position
+
+    def get_token_location(self):
+        """Returns the token's location as a string of an integer ranging from -1 to 57."""
+        return self._token_location
 
 
 
@@ -150,6 +168,7 @@ class Player:
     """Represents a player."""
     # Determines if player won, their start and end spot, current spots for tokens, and what position they chose.
 
+
 class LudoGame:
     """Represents the game as played."""
-    #Where the game is actually played. Makes local objects?
+    # Where the game is actually played. Makes local objects?
