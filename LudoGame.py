@@ -146,29 +146,57 @@ class Tokens:
     def __init__(self, token_name, player_position):
         """Creates a Tokens object."""
         self._token_name = token_name
-        self._player_position = player_position
+        self._token_player_position = player_position
         self._token_location = "-1"
 
     def get_token_name(self):
         """Returns the token name, p or q."""
         return self._token_name
 
-    def get_player_position(self):
+    def get_token_player_position(self):
         """Returns the player position of the token in question"""
-        return self._player_position
+        return self._token_player_position
 
     def get_token_location(self):
         """Returns the token's location as a string of an integer ranging from -1 to 57."""
         return self._token_location
 
-
+    # ADD IN WAY TO SHIFT TOKEN LOCATION
 
 
 class Player:
     """Represents a player."""
     # Determines if player won, their start and end spot, current spots for tokens, and what position they chose.
 
+    def __init__(self, player_position, start_pos, end_pos):
+        self._player_tokens = [Tokens('p', player_position), Tokens('q', player_position)]
+        self._player_position = player_position
+        self._start_pos = start_pos
+        self._end_pos = end_pos
+        self._token_p_step_count = self._player_tokens[0].get_token_location()
+        self._token_q_step_count = self._player_tokens[1].get_token_location()
+        self._completed = False
+
+    def get_player_tokens(self):
+        """Returns the players token objects."""
+        return self._player_tokens
+
+    def get_token_p_step_count(self):
+        """Returns the total steps that token p has taken."""
+        return self._token_p_step_count
+
+    # ADD IN ALL OTHER METHODS WHEN I START WORKING ON THIS AGAIN.
+    # THEN THINK ABOUT HOW MOVING PIECES WILL WORK WITH TURNS TUPLES
+
 
 class LudoGame:
     """Represents the game as played."""
     # Where the game is actually played. Makes local objects?
+    # Should consider dictionary with player object as key, tokens as values in list
+
+
+board = Board()                                             # Just some assorted light testing to make sure it isn't
+player_A = Player("A", "1", "50")                           # a total burning wreck.
+board.a_add_token("57", player_A.get_player_tokens()[0])
+print(board.get_a_board_spots()["E"][0].get_token_name())
+print(player_A.get_token_p_step_count())
