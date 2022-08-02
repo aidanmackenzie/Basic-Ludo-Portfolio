@@ -147,7 +147,7 @@ class Tokens:
         """Creates a Tokens object."""
         self._token_name = token_name
         self._token_player_position = player_position
-        self._token_location = "-1"
+        self._token_location = "-1"                 # Guess this will just be string of -1 to 57? Improve after works
 
     def get_token_name(self):
         """Returns the token name, p or q."""
@@ -233,11 +233,14 @@ class Player:
                 elif total_steps > 56 - int(self._start_pos):
                     return str(total_steps - (57 - self._start_pos))
 
-    def move_token(self, token_name, initial_pos, new_pos):    # MAY RELY ON LUDOGAME TO DETERMINE PLAYER POSITION AND P OR Q TOKEN (ALGORITHM)
+    def move_token(self, token_name, new_pos):    # Need to determine if new_pos will be string, currently coding as string
         """Moves a player's token from initial spot to new spot based on their 'roll'."""
-        #for token in self._player_tokens:
-            #if token.get_token_name() == token_name:        #Include bounce back here
-                #May need to shift board dictionaries to just match token steps to work best
+        for token in self._player_tokens:
+            if token.get_token_name() == token_name:        # Include bounce back here
+
+
+
+                # May need to shift board dictionaries to just match token steps to work best
 
 
     # THINK ABOUT HOW MOVING PIECES WILL WORK WITH TURNS TUPLES
@@ -252,6 +255,8 @@ class LudoGame:
 
 board = Board()                                             # Just some assorted light testing to make sure it isn't
 player_A = Player("A", "1", "50")                           # a total burning wreck.
-board.a_add_token("57", player_A.get_player_tokens()[0])
-print(board.get_a_board_spots()["E"][0].get_token_name())
-print(player_A.get_token_p_step_count())
+#board.a_add_token("57", player_A.get_player_tokens()[0])
+#print(board.get_a_board_spots()["E"][0].get_token_name())
+#print(player_A.get_token_p_step_count())
+print(board.get_a_board_spots())
+print(player_A.get_completed())
