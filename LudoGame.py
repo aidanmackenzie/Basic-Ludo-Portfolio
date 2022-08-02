@@ -186,7 +186,6 @@ class Player:
             elif self._player_position == "D":
                 board.d_add_token(token.get_token_location(), token)
 
-
     def get_player_position(self):
         """Returns the player's position."""
         return self._player_position
@@ -265,7 +264,6 @@ class Player:
                         if self._player_position == "D":
                             board.d_add_token("0", token)
 
-
                     elif 0 < int(new_pos) + int(self._start_pos) <= 56:
                         board.general_add_token(f"{int(new_pos) + int(self._start_pos)}", token)
 
@@ -285,30 +283,42 @@ class Player:
                         if self._player_position == "D":
                             board.d_add_token(f"{self._player_position}{int(new_pos) - 50}", token)
 
-
-
-
-                else:       # Include bounce factor here
+                else:
                     if self._player_position == "A":
                         board.a_remove_token(token)
+                        if int(new_pos) <= 57:
+                            board.a_add_token(new_pos, token)
+
+                        elif int(new_pos) > 57:
+                            bounce_pos = str(57 - (int(new_pos) - 57))
+                            board.a_add_token(bounce_pos, token)
 
                     elif self._player_position == "B":
                         board.b_remove_token(token)
+                        if int(new_pos) <= 57:
+                            board.b_add_token(new_pos, token)
+
+                        elif int(new_pos) > 57:
+                            bounce_pos = str(57 - (int(new_pos) - 57))
+                            board.b_add_token(bounce_pos, token)
 
                     elif self._player_position == "C":
                         board.c_remove_token(token)
+                        if int(new_pos) <= 57:
+                            board.c_add_token(new_pos, token)
+
+                        elif int(new_pos) > 57:
+                            bounce_pos = str(57 - (int(new_pos) - 57))
+                            board.c_add_token(bounce_pos, token)
 
                     elif self._player_position == "D":
                         board.d_remove_token(token)
+                        if int(new_pos) <= 57:
+                            board.d_add_token(new_pos, token)
 
-
-
-
-
-            # May need to shift board dictionaries to just match token steps to work best
-
-
-    # THINK ABOUT HOW MOVING PIECES WILL WORK WITH TURNS TUPLES
+                        elif int(new_pos) > 57:
+                            bounce_pos = str(57 - (int(new_pos) - 57))
+                            board.d_add_token(bounce_pos, token)
 
 
 class LudoGame:
@@ -318,10 +328,13 @@ class LudoGame:
     # For player creation: for playa in players: if playa == "A": (player object list).append(Player("A", "1", "50")
     # get_player_by_position used to assign actual object to player variable like player_A
 
+
+
+
 board = Board()                                             # Just some assorted light testing to make sure it isn't
 player_A = Player("A", "1", "50")                           # a total burning wreck.
-#board.a_add_token("57", player_A.get_player_tokens()[0])
-#print(board.get_a_board_spots()["E"][0].get_token_name())
-#print(player_A.get_token_p_step_count())
+# board.a_add_token("57", player_A.get_player_tokens()[0])
+# print(board.get_a_board_spots()["E"][0].get_token_name())
+# print(player_A.get_token_p_step_count())
 print(board.get_a_board_spots())
 print(player_A.get_completed())
