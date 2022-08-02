@@ -20,8 +20,8 @@ class Board:
                                       '42': [], '43': [], '44': [], '45': [], '46': [], '47': [], '48': [], '49': [],
                                       '50': [], '51': [], '52': [], '53': [], '54': [], '55': [], '56': []}
 
-        self._a_board_spots = {"H": [], "R": [], "A1": [], "A2": [], "A3": [], "A4": [], "A5": [], "A6": [], "E": []}
-        self._b_board_spots = {"H": [], "R": [], "B1": [], "B2": [], "B3": [], "B4": [], "B5": [], "B6": [], "E": []}
+        self._a_board_spots = {"H": [], "R": [], "A1": [], "A2": [], "A3": [], "A4": [], "A5": [], "A6": [], "E": []}      # Possibly rename to just match step value
+        self._b_board_spots = {"H": [], "R": [], "B1": [], "B2": [], "B3": [], "B4": [], "B5": [], "B6": [], "E": []}       # If I do that, adjust add/remove methods to match
         self._c_board_spots = {"H": [], "R": [], "C1": [], "C2": [], "C3": [], "C4": [], "C5": [], "C6": [], "E": []}
         self._d_board_spots = {"H": [], "R": [], "D1": [], "D2": [], "D3": [], "D4": [], "D5": [], "D6": [], "E": []}
 
@@ -161,14 +161,11 @@ class Tokens:
         """Returns the token's location as a string of an integer ranging from -1 to 57."""
         return self._token_location
 
-    # ADD IN WAY TO SHIFT TOKEN LOCATION
-
 
 class Player:
     """Represents a player."""
-    # Determines if player won, their start and end spot, current spots for tokens, and what position they chose.
 
-    def __init__(self, player_position, start_pos, end_pos):
+    def __init__(self, player_position, start_pos, end_pos):        # Start pos and end pos may be determined here by player position or in LudoGame TBD
         self._player_tokens = [Tokens('p', player_position), Tokens('q', player_position)]
         self._player_position = player_position
         self._start_pos = start_pos
@@ -176,6 +173,11 @@ class Player:
         self._token_p_step_count = self._player_tokens[0].get_token_location()
         self._token_q_step_count = self._player_tokens[1].get_token_location()
         self._completed = False
+        # ADD FOR LOOP THAT ADDS NEW PLAYER TOKENS TO CORRECT BOARD SPOT
+
+    def get_player_position(self):
+        """Returns the player's position."""
+        return self._player_position
 
     def get_player_tokens(self):
         """Returns the players token objects."""
@@ -185,14 +187,48 @@ class Player:
         """Returns the total steps that token p has taken."""
         return self._token_p_step_count
 
-    # ADD IN ALL OTHER METHODS WHEN I START WORKING ON THIS AGAIN.
-    # THEN THINK ABOUT HOW MOVING PIECES WILL WORK WITH TURNS TUPLES
+    def get_token_q_step_count(self):
+        """Returns the total steps that token q has taken."""
+        return self._token_q_step_count
+
+    def get_completed(self):
+        """Returns True if player has finished game, False otherwise."""
+        if self._token_q_step_count == "57" and self._token_p_step_count == "57":
+            return True
+
+        else:
+            return False
+
+    def get_space_name(self, total_steps):
+        """Returns the name of the space the token with given step count has landed on."""
+        for token in self._player_tokens:
+            if token.get_token_location() == str(total_steps):
+                if str(total_steps) == "-1":
+                    return "H"
+                elif str(total_steps) == "0":
+                    return "R"
+                elif str(total_steps) == "57":
+                    return "E"
+                elif 50 < total_steps < 57:
+                    return f"{self._player_position}{total_steps - 50}"
+                else:
+                    return str(total_steps)
+
+    def move_token(self, token_name, initial_pos, new_pos):    # MAY RELY ON LUDOGAME TO DETERMINE PLAYER POSITION AND P OR Q TOKEN (ALGORITHM)
+        """Moves a player's token from initial spot to new spot based on their 'roll'."""
+        #for token in self._player_tokens:
+            #if token.get_token_name() == token_name:        #Include bounce back here
+                #May need to shift board dictionaries to just match token steps to work best
+
+
+    # THINK ABOUT HOW MOVING PIECES WILL WORK WITH TURNS TUPLES
 
 
 class LudoGame:
     """Represents the game as played."""
     # Where the game is actually played. Makes local objects?
     # Should consider dictionary with player object as key, tokens as values in list
+    # For player creation: for playa in players: if playa == "A": (player object list).append(Player("A", "1", "50")
 
 
 board = Board()                                             # Just some assorted light testing to make sure it isn't
