@@ -236,11 +236,76 @@ class Player:
     def move_token(self, token_name, new_pos):    # Need to determine if new_pos will be string, currently coding as string
         """Moves a player's token from initial spot to new spot based on their 'roll'."""
         for token in self._player_tokens:
-            if token.get_token_name() == token_name:        # Include bounce back here
+            if token.get_token_name() == token_name:
+                if int(token.get_token_location()) <= 50:
+                    board.general_remove_token(token)
+                    if int(new_pos) == -1:
+                        if self._player_position == "A":
+                            board.a_add_token("-1", token)
+
+                        if self._player_position == "B":
+                            board.b_add_token("-1", token)
+
+                        if self._player_position == "C":
+                            board.c_add_token("-1", token)
+
+                        if self._player_position == "D":
+                            board.d_add_token("-1", token)
+
+                    elif int(new_pos) == 0:
+                        if self._player_position == "A":
+                            board.a_add_token("0", token)
+
+                        if self._player_position == "B":
+                            board.b_add_token("0", token)
+
+                        if self._player_position == "C":
+                            board.c_add_token("0", token)
+
+                        if self._player_position == "D":
+                            board.d_add_token("0", token)
+
+
+                    elif 0 < int(new_pos) + int(self._start_pos) <= 56:
+                        board.general_add_token(f"{int(new_pos) + int(self._start_pos)}", token)
+
+                    elif int(new_pos) + int(self._start_pos) > 56 and int(new_pos) < 51:
+                        board.general_add_token(f"{int(new_pos) - (57 - int(self._start_pos))}", token)
+
+                    elif 57 > int(new_pos) >= 51:
+                        if self._player_position == "A":
+                            board.a_add_token(f"{self._player_position}{int(new_pos) - 50}", token)
+
+                        if self._player_position == "B":
+                            board.b_add_token(f"{self._player_position}{int(new_pos) - 50}", token)
+
+                        if self._player_position == "C":
+                            board.c_add_token(f"{self._player_position}{int(new_pos) - 50}", token)
+
+                        if self._player_position == "D":
+                            board.d_add_token(f"{self._player_position}{int(new_pos) - 50}", token)
 
 
 
-                # May need to shift board dictionaries to just match token steps to work best
+
+                else:       # Include bounce factor here
+                    if self._player_position == "A":
+                        board.a_remove_token(token)
+
+                    elif self._player_position == "B":
+                        board.b_remove_token(token)
+
+                    elif self._player_position == "C":
+                        board.c_remove_token(token)
+
+                    elif self._player_position == "D":
+                        board.d_remove_token(token)
+
+
+
+
+
+            # May need to shift board dictionaries to just match token steps to work best
 
 
     # THINK ABOUT HOW MOVING PIECES WILL WORK WITH TURNS TUPLES
