@@ -173,7 +173,19 @@ class Player:
         self._token_p_step_count = self._player_tokens[0].get_token_location()
         self._token_q_step_count = self._player_tokens[1].get_token_location()
         self._completed = False
-        # ADD FOR LOOP THAT ADDS NEW PLAYER TOKENS TO CORRECT BOARD SPOT
+        for token in self._player_tokens:
+            if self._player_position == "A":
+                board.a_add_token(token.get_token_location(), token)
+
+            elif self._player_position == "B":
+                board.b_add_token(token.get_token_location(), token)
+
+            elif self._player_position == "C":
+                board.c_add_token(token.get_token_location(), token)
+
+            elif self._player_position == "D":
+                board.d_add_token(token.get_token_location(), token)
+
 
     def get_player_position(self):
         """Returns the player's position."""
@@ -205,14 +217,21 @@ class Player:
             if token.get_token_location() == str(total_steps):
                 if str(total_steps) == "-1":
                     return "H"
+
                 elif str(total_steps) == "0":
                     return "R"
+
                 elif str(total_steps) == "57":
                     return "E"
+
                 elif 50 < total_steps < 57:
                     return f"{self._player_position}{total_steps - 50}"
-                else:
-                    return str(total_steps)
+
+                elif total_steps <= 56 - int(self._start_pos):
+                    return str(total_steps + int(self._start_pos))
+
+                elif total_steps > 56 - int(self._start_pos):
+                    return str(total_steps - (57 - self._start_pos))
 
     def move_token(self, token_name, initial_pos, new_pos):    # MAY RELY ON LUDOGAME TO DETERMINE PLAYER POSITION AND P OR Q TOKEN (ALGORITHM)
         """Moves a player's token from initial spot to new spot based on their 'roll'."""
@@ -229,7 +248,7 @@ class LudoGame:
     # Where the game is actually played. Makes local objects?
     # Should consider dictionary with player object as key, tokens as values in list
     # For player creation: for playa in players: if playa == "A": (player object list).append(Player("A", "1", "50")
-
+    # get_player_by_position used to assign actual object to player variable like player_A
 
 board = Board()                                             # Just some assorted light testing to make sure it isn't
 player_A = Player("A", "1", "50")                           # a total burning wreck.
