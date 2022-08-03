@@ -236,7 +236,7 @@ class Player:
         """Moves a player's token from initial spot to new spot based on their 'roll'."""
         for token in self._player_tokens:
             if token.get_token_name() == token_name:
-                if int(token.get_token_location()) <= 50:
+                if 1 <= int(token.get_token_location()) <= 50:
                     board.general_remove_token(token)
                     if int(new_pos) == -1:
                         if self._player_position == "A":
@@ -337,4 +337,5 @@ player_A = Player("A", "1", "50")                           # a total burning wr
 # print(board.get_a_board_spots()["E"][0].get_token_name())
 # print(player_A.get_token_p_step_count())
 print(board.get_a_board_spots())
-print(player_A.get_completed())
+player_A.move_token('p', "57")
+print(board.get_a_board_spots())
