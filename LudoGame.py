@@ -286,7 +286,10 @@ class Player:
                 else:
                     if self._player_position == "A":
                         board.a_remove_token(token)
-                        if 0 < int(new_pos) + int(self._start_pos) <= 56:
+                        if new_pos == "0":
+                            board.a_add_token("0", token)
+
+                        elif 0 < int(new_pos) + int(self._start_pos) <= 56:
                             board.general_add_token(f"{int(new_pos) + int(self._start_pos)}", token)
 
                         elif int(new_pos) + int(self._start_pos) > 56 and int(new_pos) < 51:
@@ -344,7 +347,7 @@ player_A = Player("A", "1", "50")                           # a total burning wr
 # print(board.get_a_board_spots()["E"][0].get_token_name())
 # print(player_A.get_token_p_step_count())
 #print(board.get_a_board_spots())
-player_A.move_token('p', "1")
+player_A.move_token('p', "6")
 player_A.move_token("q", "0")
 print(board.get_a_board_spots())
 print(board.get_general_board_spots())
