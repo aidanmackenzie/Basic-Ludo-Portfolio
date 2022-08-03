@@ -61,7 +61,7 @@ class Board:
             self._a_board_spots["E"].append(token_object)
 
         else:
-            inner_spot_value = f"A{spot_value - 50}"
+            inner_spot_value = f"A{int(spot_value) - 50}"
             self._a_board_spots[inner_spot_value].append(token_object)
 
     def b_add_token(self, spot_value, token_object):
@@ -76,7 +76,7 @@ class Board:
             self._b_board_spots["E"].append(token_object)
 
         else:
-            inner_spot_value = f"B{spot_value - 50}"
+            inner_spot_value = f"B{int(spot_value) - 50}"
             self._b_board_spots[inner_spot_value].append(token_object)
 
     def c_add_token(self, spot_value, token_object):
@@ -91,7 +91,7 @@ class Board:
             self._c_board_spots["E"].append(token_object)
 
         else:
-            inner_spot_value = f"C{spot_value - 50}"
+            inner_spot_value = f"C{int(spot_value) - 50}"
             self._c_board_spots[inner_spot_value].append(token_object)
 
     def d_add_token(self, spot_value, token_object):
@@ -106,7 +106,7 @@ class Board:
             self._d_board_spots["E"].append(token_object)
 
         else:
-            inner_spot_value = f"D{spot_value - 50}"
+            inner_spot_value = f"D{int(spot_value) - 50}"
             self._d_board_spots[inner_spot_value].append(token_object)
 
     def general_remove_token(self, token_object):
@@ -336,6 +336,7 @@ player_A = Player("A", "1", "50")                           # a total burning wr
 # board.a_add_token("57", player_A.get_player_tokens()[0])
 # print(board.get_a_board_spots()["E"][0].get_token_name())
 # print(player_A.get_token_p_step_count())
+#print(board.get_a_board_spots())
+player_A.move_token('p', "48")
 print(board.get_a_board_spots())
-player_A.move_token('p', "57")
-print(board.get_a_board_spots())
+print(board.get_general_board_spots())
