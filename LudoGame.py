@@ -337,6 +337,7 @@ player_A = Player("A", "1", "50")                           # a total burning wr
 # print(board.get_a_board_spots()["E"][0].get_token_name())
 # print(player_A.get_token_p_step_count())
 #print(board.get_a_board_spots())
-player_A.move_token('p', "48")
+player_A.move_token('p', "51")
+player_A.move_token("q", "56")
 print(board.get_a_board_spots())
 print(board.get_general_board_spots())
