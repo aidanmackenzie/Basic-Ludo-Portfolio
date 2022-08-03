@@ -268,7 +268,7 @@ class Player:
                         if self._player_position == "D":
                             board.d_add_token("0", token)
 
-                    elif 0 < int(new_pos) + int(self._start_pos) <= 56:
+                    elif 0 < int(new_pos) + int(self._start_pos) <= 56 and int(new_pos) < 51:
                         board.general_add_token(f"{int(new_pos) + int(self._start_pos)}", token)
 
                     elif int(new_pos) + int(self._start_pos) > 56 and int(new_pos) < 51:
@@ -293,7 +293,7 @@ class Player:
                         if new_pos == "0":
                             board.a_add_token("0", token)
 
-                        elif 0 < int(new_pos) + int(self._start_pos) <= 56:
+                        elif 0 < int(new_pos) + int(self._start_pos) <= 56 and int(new_pos) < 51:
                             board.general_add_token(f"{int(new_pos)}", token)
 
                         elif int(new_pos) + int(self._start_pos) > 56 and int(new_pos) < 51:
@@ -362,6 +362,6 @@ print(board.get_general_board_spots())
 print("")
 print("")
 player_A.move_token('p', "-1")
-player_A.move_token("q", "51")
+player_A.move_token("q", "51")      # This one doesn't work
 print(board.get_a_board_spots())
 print(board.get_general_board_spots())
