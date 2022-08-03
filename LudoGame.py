@@ -161,6 +161,10 @@ class Tokens:
         """Returns the token's location as a string of an integer ranging from -1 to 57."""
         return self._token_location
 
+    def update_token_location(self, new_location):
+        """Shifts token location to new value."""
+        self._token_location = new_location
+
 
 class Player:
     """Represents a player."""
@@ -330,6 +334,8 @@ class Player:
                             bounce_pos = str(57 - (int(new_pos) - 57))
                             board.d_add_token(bounce_pos, token)
 
+                token.update_token_location(new_pos)
+
 
 class LudoGame:
     """Represents the game as played."""
@@ -347,13 +353,15 @@ player_A = Player("A", "1", "50")                           # a total burning wr
 # print(board.get_a_board_spots()["E"][0].get_token_name())
 # print(player_A.get_token_p_step_count())
 #print(board.get_a_board_spots())
-player_A.move_token('p', "6")
+player_A.move_token('p', "1")
 player_A.move_token("q", "0")
 print(player_A.get_player_tokens()[0].get_token_location())
+print(player_A.get_player_tokens()[1].get_token_location())
 print(board.get_a_board_spots())
 print(board.get_general_board_spots())
 print("")
 print("")
-#player_A.move_token('p', "-1")
-#print(board.get_a_board_spots())
-#print(board.get_general_board_spots())
+player_A.move_token('p', "-1")
+player_A.move_token("q", "51")
+print(board.get_a_board_spots())
+print(board.get_general_board_spots())
