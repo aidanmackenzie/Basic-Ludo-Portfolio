@@ -289,6 +289,7 @@ class Player:
 
                 else:
                     if self._player_position == "A":
+                        board.a_remove_token(token)
                         if new_pos == "-1":
                             board.a_add_token("-1", token)
 
@@ -376,18 +377,21 @@ class Player:
 
 class LudoGame:
     """Represents the game as played."""
+    def __init__(self):
+        """Creates a LudoGame object."""
+        self._board = Board()
+
+    def get_board(self):
+        """Returns the game board for current game."""
+        return self._board
     # Where the game is actually played. Makes local objects?
     # Should consider dictionary with player object as key, tokens as values in list
     # For player creation: for playa in players: if playa == "A": (player object list).append(Player("A", "1", "50")
     # get_player_by_position used to assign actual object to player variable like player_A
-
-
-
+    # May need to shift board used in previous code into a get_board line
 
 board = Board()
-player_D = Player("D", "43", "36")
-player_D.move_token("p", "50")
-player_D.move_token("p", "-1")
-print(board.get_general_board_spots())
-print(board.get_d_board_spots())
+
+game = LudoGame()
+print(game.get_board().get_general_board_spots())
 
