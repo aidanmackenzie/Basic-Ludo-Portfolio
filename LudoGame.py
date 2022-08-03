@@ -284,13 +284,13 @@ class Player:
                             board.d_add_token(f"{self._player_position}{int(new_pos) - 50}", token)
 
                 else:
-                    if self._player_position == "A":
+                    if self._player_position == "A":                                                                    # Testing changes here before moving to other players
                         board.a_remove_token(token)
                         if new_pos == "0":
                             board.a_add_token("0", token)
 
                         elif 0 < int(new_pos) + int(self._start_pos) <= 56:
-                            board.general_add_token(f"{int(new_pos) + int(self._start_pos)}", token)
+                            board.general_add_token(f"{int(new_pos)}", token)
 
                         elif int(new_pos) + int(self._start_pos) > 56 and int(new_pos) < 51:
                             board.general_add_token(f"{int(new_pos) - (57 - int(self._start_pos))}", token)
@@ -349,5 +349,10 @@ player_A = Player("A", "1", "50")                           # a total burning wr
 #print(board.get_a_board_spots())
 player_A.move_token('p', "6")
 player_A.move_token("q", "0")
+print(board.get_a_board_spots())
+print(board.get_general_board_spots())
+print("")
+print("")
+player_A.move_token('p', "-1")
 print(board.get_a_board_spots())
 print(board.get_general_board_spots())
