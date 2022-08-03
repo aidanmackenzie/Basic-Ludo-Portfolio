@@ -288,8 +288,7 @@ class Player:
                             board.d_add_token(f"{self._player_position}{int(new_pos) - 50}", token)
 
                 else:
-                    if self._player_position == "A":                                                                    # Testing changes here before moving to other players
-                        board.a_remove_token(token)
+                    if self._player_position == "A":
                         if new_pos == "0":
                             board.a_add_token("0", token)
 
@@ -298,7 +297,6 @@ class Player:
 
                         elif int(new_pos) + int(self._start_pos) > 56 and int(new_pos) < 51:
                             board.general_add_token(f"{int(new_pos) - (57 - int(self._start_pos))}", token)
-
 
                         elif 51 <= int(new_pos) <= 57 or int(new_pos) == -1 or int(new_pos) == 0:
                             board.a_add_token(new_pos, token)
@@ -309,7 +307,16 @@ class Player:
 
                     elif self._player_position == "B":
                         board.b_remove_token(token)
-                        if int(new_pos) <= 57:
+                        if new_pos == "0":
+                            board.b_add_token("0", token)
+
+                        elif 0 < (int(new_pos) + int(self._start_pos) - 1) <= 56 and int(new_pos) < 51:
+                            board.general_add_token(f"{int(new_pos) + int(self._start_pos) - 1}", token)
+
+                        elif int(new_pos) + int(self._start_pos) -1 >= 56 and int(new_pos) < 51:
+                            board.general_add_token(f"{int(new_pos) - (57 - int(self._start_pos))}", token)
+
+                        elif 51 <= int(new_pos) <= 57 or int(new_pos) == -1 or int(new_pos) == 0:
                             board.b_add_token(new_pos, token)
 
                         elif int(new_pos) > 57:
@@ -347,21 +354,10 @@ class LudoGame:
 
 
 
-board = Board()                                             # Just some assorted light testing to make sure it isn't
-player_A = Player("A", "1", "50")                           # a total burning wreck.
-# board.a_add_token("57", player_A.get_player_tokens()[0])
-# print(board.get_a_board_spots()["E"][0].get_token_name())
-# print(player_A.get_token_p_step_count())
-#print(board.get_a_board_spots())
-player_A.move_token('p', "1")
-player_A.move_token("q", "0")
-print(player_A.get_player_tokens()[0].get_token_location())
-print(player_A.get_player_tokens()[1].get_token_location())
-print(board.get_a_board_spots())
+board = Board()
+Player_B = Player("B", "15", "8")
+Player_B.move_token("p", "63")
+Player_B.move_token("q", "57")
+Player_B.move_token("p", "-1")
 print(board.get_general_board_spots())
-print("")
-print("")
-player_A.move_token('p', "-1")
-player_A.move_token("q", "51")      # This one doesn't work
-print(board.get_a_board_spots())
-print(board.get_general_board_spots())
+print(board.get_b_board_spots())
