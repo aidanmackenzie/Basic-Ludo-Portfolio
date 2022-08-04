@@ -174,8 +174,8 @@ class Player:
         self._player_position = player_position
         self._start_pos = start_pos
         self._end_pos = end_pos
-        self._token_p_step_count = self._player_tokens[0].get_token_location()
-        self._token_q_step_count = self._player_tokens[1].get_token_location()
+        self._token_p_step_count = "-1"
+        self._token_q_step_count = "-1"
         self._completed = False
         for token in self._player_tokens:
             if self._player_position == "A":
@@ -205,6 +205,14 @@ class Player:
     def get_token_q_step_count(self):
         """Returns the total steps that token q has taken."""
         return self._token_q_step_count
+
+    def update_step_count(self, token_name, new_step_count):
+        """Updates the step count of the appropriate token."""
+        if token_name == "p":
+            self._token_p_step_count = new_step_count
+
+        elif token_name == "q":
+            self._token_q_step_count = new_step_count
 
     def get_completed(self):
         """Returns True if player has finished game, False otherwise."""
@@ -378,17 +386,20 @@ class Player:
                             return self.move_token(token_name, bounce_pos)
 
                 token.update_token_location(new_pos)
+                self.update_step_count(token_name, new_pos)
 
 
 class LudoGame:
     """Represents the game as played."""
+
     def __init__(self):
-        """Creates a LudoGame object."""
+        """Creates a LudoGame object."""        # Add more to init
         self._board = Board()
 
     def get_board(self):
         """Returns the game board for current game."""
         return self._board
+
     # Where the game is actually played. Makes local objects?
     # Should consider dictionary with player object as key, tokens as values in list
     # For player creation: for playa in players: if playa == "A": (player object list).append(Player("A", "1", "50")
@@ -397,14 +408,14 @@ class LudoGame:
 
 board = Board()
 player_A = Player("A", "1", "50")
-player_A.move_token("p", "50")
+player_A.move_token("p", "57")
 player_A.move_token("q", "57")
 print(player_A.get_token_p_step_count())
 print(player_A.get_token_q_step_count())
-print(player_A.get_space_name(57))
+#print(player_A.get_space_name(57))
 print(player_A.get_completed())
-print(player_A.get_player_tokens()[0].get_token_location())
+print(board.get_general_board_spots())
+print(board.get_a_board_spots())
 
 player_C = Player("C", "29", "22")
 player_C.move_token("p", "29")
-print(player_C.get_space_name(29))
