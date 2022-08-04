@@ -391,7 +391,11 @@ class LudoGame:
     # May need to shift board used in previous code into a get_board line
 
 board = Board()
-
-game = LudoGame()
-print(game.get_board().get_general_board_spots())
-
+player_A = Player("A", "1", "50")
+player_A.move_token("p", "15")
+player_A.move_token("q", "57")
+print(player_A.get_token_p_step_count())
+print(player_A.get_token_q_step_count())
+print(player_A.get_space_name(15))
+print(player_A.get_completed())
+print(player_A.get_player_tokens()[0].get_token_location())
