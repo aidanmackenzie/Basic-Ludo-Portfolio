@@ -393,16 +393,21 @@ class LudoGame:
     def __init__(self):
         """Creates a LudoGame object."""        # Add more to init
         self._board = Board()
+        self._player_list = {}
 
     def get_board(self):
         """Returns the game board for current game."""
         return self._board
 
-    # Where the game is actually played. Makes local objects?
-    # Should consider dictionary with player object as key, tokens as values in list
+    def get_player_list(self):
+        """Returns the player list for the current game."""
+        return self._player_list
+
+
     # For player creation: for playa in players: if playa == "A": (player object list).append(Player("A", "1", "50")
     # get_player_by_position used to assign actual object to player variable like player_A
     # May need to shift board used in previous code into a get_board line
+    # Make sure goofy stacked rule is accounted for.
 
 
 board = Board()
