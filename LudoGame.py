@@ -234,7 +234,7 @@ class Player:
                     return str(total_steps + int(self._start_pos))
 
                 elif total_steps > 56 - int(self._start_pos):
-                    return str(total_steps - (57 - self._start_pos))
+                    return str(total_steps - (57 - int(self._start_pos)))
 
     def move_token(self, token_name, new_pos):    # Need to determine if new_pos will be string, currently coding as string
         """Moves a player's token from initial spot to new spot based on their 'roll'."""
@@ -392,10 +392,14 @@ class LudoGame:
 
 board = Board()
 player_A = Player("A", "1", "50")
-player_A.move_token("p", "15")
+player_A.move_token("p", "50")
 player_A.move_token("q", "57")
 print(player_A.get_token_p_step_count())
 print(player_A.get_token_q_step_count())
-print(player_A.get_space_name(15))
+print(player_A.get_space_name(50))
 print(player_A.get_completed())
 print(player_A.get_player_tokens()[0].get_token_location())
+
+player_B = Player("B", "15", "8")
+player_B.move_token("p", "49")
+print(player_B.get_space_name(49))
