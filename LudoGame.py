@@ -247,9 +247,7 @@ class Player:
                 else:
                     return f"{total_steps + int(self._start_pos) - 1}"
 
-
-
-    def move_token(self, token_name, new_pos):    # Need to determine if new_pos will be string, currently coding as string
+    def move_token(self, token_name, new_pos):
         """Moves a player's token from initial spot to new spot based on their 'roll'."""
         for token in self._player_tokens:
             if token.get_token_name() == token_name:
@@ -333,7 +331,7 @@ class Player:
                         elif 0 < (int(new_pos) + int(self._start_pos) - 1) <= 56 and int(new_pos) < 51:
                             board.general_add_token(f"{int(new_pos) + int(self._start_pos) - 1}", token)
 
-                        elif int(new_pos) + int(self._start_pos) -1 >= 56 and int(new_pos) < 51:
+                        elif int(new_pos) + int(self._start_pos) - 1 >= 56 and int(new_pos) < 51:
                             board.general_add_token(f"{int(new_pos) - (57 - int(self._start_pos))}", token)
 
                         elif 51 <= int(new_pos) <= 57 or int(new_pos) == -1 or int(new_pos) == 0:
@@ -406,6 +404,7 @@ class LudoGame:
     # get_player_by_position used to assign actual object to player variable like player_A
     # May need to shift board used in previous code into a get_board line
 
+
 board = Board()
 player_A = Player("A", "1", "50")
 player_A.move_token("p", "57")
@@ -416,7 +415,7 @@ player_C = Player("C", "29", "22")
 player_C.move_token("p", "50")
 print(player_C.get_token_p_step_count())
 print(player_C.get_token_q_step_count())
-#print(player_A.get_space_name(57))
+# print(player_A.get_space_name(57))
 print(player_C.get_completed())
 print(board.get_general_board_spots())
 print(board.get_c_board_spots())
