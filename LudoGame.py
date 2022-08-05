@@ -266,6 +266,7 @@ class LudoGame:
 
     def move_token(self, player_object, token_name, steps_to_take_int):
         """Moves a player's token from initial spot to new spot based on their 'roll'."""
+        #Need to rewrite this entire thing. SHIT.
 
     def play_game(self, player_list, turn_list):
         """Plays the game of Ludo with the given player list and turn list."""
@@ -290,11 +291,30 @@ class LudoGame:
                 self._board.c_add_token("-1", self._player_dict["A"].get_player_tokens()[0])
                 self._board.c_add_token("-1", self._player_dict["A"].get_player_tokens()[1])
 
+        for turn in turn_list:
+            if self._player_dict[turn[0]].get_token_p_step_count == "57" and self._player_dict[turn[0]].get_token_q_step_count == "57":     #checks if both players pieces are at end
+                pass
+
+            else:
+                if self._player_dict[turn[0]].get_token_p_step_count == self._player_dict[turn[0]].get_token_q_step_count and int(self._player_dict[turn[0]].get_token_p_step_count) >= 1:  #checks if pieces are stacked, then moves together
+                    self.move_token(self._player_dict[turn[0]], "p", turn[1])
+                    self.move_token(self._player_dict[turn[0]], "q", turn[1])
+
+                else:   #all other movement logic goes here
+
+                    if turn[1] == 6:
+                        if self._player_dict[turn[0]].get_token_p_step_count == "-1" and self._player_dict[turn[0]].get_token_q_step_count == "-1":
+                            self.move_token(self._player_dict[turn[0]], "p", 1)
+
+                        elif self._player_dict[turn[0]].get_token_p_step_count == "-1":
+                            self.move_token(self._player_dict[turn[0]], "p", 1)
+
+                        elif self._player_dict[turn[0]].get_token_q_step_count == "-1":
+                            self.move_token(self._player_dict[turn[0]], "q", 1)
 
 
-    # For player creation: for playa in players: if playa == "A": (player object list).append(Player("A", "1", "50")
-    # get_player_by_position used to assign actual object to player variable like player_A
-    # May need to shift board used in previous code into a get_board line
+
+
     # Make sure goofy stacked rule is accounted for.
 
 players = ["A", "B"]
