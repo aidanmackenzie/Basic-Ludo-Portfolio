@@ -377,6 +377,9 @@ class LudoGame:
                     elif int(self._player_dict[turn[0]].get_token_q_step_count) < int(self._player_dict[turn[0]].get_token_p_step_count):
                         self.move_token(self._player_dict[turn[0]], "q", turn[1])
 
+                    else:
+                        self.move_token(self._player_dict[turn[0]], "p", turn[1])
+
 
         for player in self._player_dict.values():
             self._final_token_locations.append(player.get_space_name(int(player.get_token_p_step_count())))
