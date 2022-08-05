@@ -177,18 +177,6 @@ class Player:
         self._token_p_step_count = "-1"
         self._token_q_step_count = "-1"
         self._completed = False
-        for token in self._player_tokens:
-            if self._player_position == "A":
-                board.a_add_token(token.get_token_location(), token)
-
-            elif self._player_position == "B":
-                board.b_add_token(token.get_token_location(), token)
-
-            elif self._player_position == "C":
-                board.c_add_token(token.get_token_location(), token)
-
-            elif self._player_position == "D":
-                board.d_add_token(token.get_token_location(), token)
 
     def get_player_position(self):
         """Returns the player's position."""
@@ -247,153 +235,14 @@ class Player:
                 else:
                     return f"{total_steps + int(self._start_pos) - 1}"
 
-    def move_token(self, token_name, new_pos):
-        """Moves a player's token from initial spot to new spot based on their 'roll'."""
-        for token in self._player_tokens:
-            if token.get_token_name() == token_name:
-                if 1 <= int(token.get_token_location()) <= 50:
-                    board.general_remove_token(token)
-                    if int(new_pos) == -1:
-                        if self._player_position == "A":
-                            board.a_add_token("-1", token)
-
-                        if self._player_position == "B":
-                            board.b_add_token("-1", token)
-
-                        if self._player_position == "C":
-                            board.c_add_token("-1", token)
-
-                        if self._player_position == "D":
-                            board.d_add_token("-1", token)
-
-                    elif int(new_pos) == 0:
-                        if self._player_position == "A":
-                            board.a_add_token("0", token)
-
-                        if self._player_position == "B":
-                            board.b_add_token("0", token)
-
-                        if self._player_position == "C":
-                            board.c_add_token("0", token)
-
-                        if self._player_position == "D":
-                            board.d_add_token("0", token)
-
-                    elif 0 < int(new_pos) + int(self._start_pos) <= 56 and int(new_pos) < 51:
-                        board.general_add_token(f"{int(new_pos) + int(self._start_pos)}", token)
-
-                    elif int(new_pos) + int(self._start_pos) > 56 and int(new_pos) < 51:
-                        board.general_add_token(f"{int(new_pos) - (57 - int(self._start_pos))}", token)
-
-                    elif 57 > int(new_pos) >= 51:
-                        if self._player_position == "A":
-                            board.a_add_token(f"{self._player_position}{int(new_pos) - 50}", token)
-
-                        if self._player_position == "B":
-                            board.b_add_token(f"{self._player_position}{int(new_pos) - 50}", token)
-
-                        if self._player_position == "C":
-                            board.c_add_token(f"{self._player_position}{int(new_pos) - 50}", token)
-
-                        if self._player_position == "D":
-                            board.d_add_token(f"{self._player_position}{int(new_pos) - 50}", token)
-
-                else:
-                    if self._player_position == "A":
-                        board.a_remove_token(token)
-                        if new_pos == "-1":
-                            board.a_add_token("-1", token)
-
-                        if new_pos == "0":
-                            board.a_add_token("0", token)
-
-                        elif 0 < (int(new_pos) + int(self._start_pos) - 1) <= 56 and int(new_pos) < 51:
-                            board.general_add_token(f"{int(new_pos) + int(self._start_pos) - 1}", token)
-
-                        elif int(new_pos) + int(self._start_pos) - 1 >= 56 and int(new_pos) < 51:
-                            board.general_add_token(f"{int(new_pos) - (57 - int(self._start_pos))}", token)
-
-                        elif 51 <= int(new_pos) <= 57 or int(new_pos) == -1 or int(new_pos) == 0:
-                            board.a_add_token(new_pos, token)
-
-                        elif int(new_pos) > 57:
-                            bounce_pos = str(57 - (int(new_pos) - 57))
-                            return self.move_token(token_name, bounce_pos)
-
-                    elif self._player_position == "B":
-                        board.b_remove_token(token)
-                        if new_pos == "-1":
-                            board.b_add_token("-1", token)
-
-                        if new_pos == "0":
-                            board.b_add_token("0", token)
-
-                        elif 0 < (int(new_pos) + int(self._start_pos) - 1) <= 56 and int(new_pos) < 51:
-                            board.general_add_token(f"{int(new_pos) + int(self._start_pos) - 1}", token)
-
-                        elif int(new_pos) + int(self._start_pos) - 1 >= 56 and int(new_pos) < 51:
-                            board.general_add_token(f"{int(new_pos) - (57 - int(self._start_pos))}", token)
-
-                        elif 51 <= int(new_pos) <= 57 or int(new_pos) == -1 or int(new_pos) == 0:
-                            board.b_add_token(new_pos, token)
-
-                        elif int(new_pos) > 57:
-                            bounce_pos = str(57 - (int(new_pos) - 57))
-                            return self.move_token(token_name, bounce_pos)
-
-                    elif self._player_position == "C":
-                        board.c_remove_token(token)
-                        if new_pos == "-1":
-                            board.c_add_token("-1", token)
-
-                        if new_pos == "0":
-                            board.c_add_token("0", token)
-
-                        elif 0 < (int(new_pos) + int(self._start_pos) - 1) <= 56 and int(new_pos) < 51:
-                            board.general_add_token(f"{int(new_pos) + int(self._start_pos) - 1}", token)
-
-                        elif int(new_pos) + int(self._start_pos) - 1 >= 56 and int(new_pos) < 51:
-                            board.general_add_token(f"{int(new_pos) - (57 - int(self._start_pos))}", token)
-
-                        elif 51 <= int(new_pos) <= 57 or int(new_pos) == -1 or int(new_pos) == 0:
-                            board.c_add_token(new_pos, token)
-
-                        elif int(new_pos) > 57:
-                            bounce_pos = str(57 - (int(new_pos) - 57))
-                            return self.move_token(token_name, bounce_pos)
-
-                    elif self._player_position == "D":
-                        board.d_remove_token(token)
-                        if new_pos == "-1":
-                            board.d_add_token("-1", token)
-
-                        if new_pos == "0":
-                            board.d_add_token("0", token)
-
-                        elif 0 < (int(new_pos) + int(self._start_pos) - 1) <= 56 and int(new_pos) < 51:
-                            board.general_add_token(f"{int(new_pos) + int(self._start_pos) - 1}", token)
-
-                        elif int(new_pos) + int(self._start_pos) - 1 >= 56 and int(new_pos) < 51:
-                            board.general_add_token(f"{int(new_pos) - (57 - int(self._start_pos))}", token)
-
-                        elif 51 <= int(new_pos) <= 57 or int(new_pos) == -1 or int(new_pos) == 0:
-                            board.d_add_token(new_pos, token)
-
-                        elif int(new_pos) > 57:
-                            bounce_pos = str(57 - (int(new_pos) - 57))
-                            return self.move_token(token_name, bounce_pos)
-
-                token.update_token_location(new_pos)
-                self.update_step_count(token_name, new_pos)
-
-
+ 
 class LudoGame:
     """Represents the game as played."""
 
     def __init__(self):
         """Creates a LudoGame object."""
         self._board = Board()
-        self._player_list = {}
+        self._player_dict = {}
 
     def get_board(self):
         """Returns the game board for current game."""
@@ -401,7 +250,7 @@ class LudoGame:
 
     def get_player_list(self):
         """Returns the player list for the current game."""
-        return self._player_list
+        return self._player_dict
 
     def get_player_by_position(self, letter_position):
         """Returns the player object linked to the position, if player not an option, returns that player not found."""
@@ -409,150 +258,38 @@ class LudoGame:
             return "Player not found!"
 
         else:
-            if letter_position in self._player_list:
-                return self._player_list[letter_position]
+            if letter_position in self._player_dict:
+                return self._player_dict[letter_position]
 
             else:
                 return "Player not found!"
 
-    def move_token(self, player_object, token_name, steps_to_take):
+    def move_token(self, player_object, token_name, steps_to_take_int):
         """Moves a player's token from initial spot to new spot based on their 'roll'."""
-        for token in self._player_tokens:
-            if token.get_token_name() == token_name:
-                if 1 <= int(token.get_token_location()) <= 50:
-                    board.general_remove_token(token)
-                    if int(new_pos) == -1:
-                        if self._player_position == "A":
-                            board.a_add_token("-1", token)
 
-                        if self._player_position == "B":
-                            board.b_add_token("-1", token)
+    def play_game(self, player_list, turn_list):
+        """Plays the game of Ludo with the given player list and turn list."""
+        for player in player_list:
+            if player == "A":
+                self._player_dict[player] = Player(player, "1", "50")
+                self._board.a_add_token("51", self._player_dict["A"].get_player_tokens()[0])
+                self._board.a_add_token("-1", self._player_dict["A"].get_player_tokens()[1])
 
-                        if self._player_position == "C":
-                            board.c_add_token("-1", token)
+            elif player == "B":
+                self._player_dict[player] = Player(player, "15", "8")
+                self._board.b_add_token("-1", self._player_dict["B"].get_player_tokens()[0])
+                self._board.b_add_token("-1", self._player_dict["B"].get_player_tokens()[1])
 
-                        if self._player_position == "D":
-                            board.d_add_token("-1", token)
+            elif player == "C":
+                self._player_dict[player] = Player(player, "29", "22")
+                self._board.c_add_token("-1", self._player_dict["C"].get_player_tokens()[0])
+                self._board.c_add_token("-1", self._player_dict["C"].get_player_tokens()[1])
 
-                    elif int(new_pos) == 0:
-                        if self._player_position == "A":
-                            board.a_add_token("0", token)
+            elif player == "D":
+                self._player_dict[player] = Player(player, "43", "36")
+                self._board.c_add_token("-1", self._player_dict["A"].get_player_tokens()[0])
+                self._board.c_add_token("-1", self._player_dict["A"].get_player_tokens()[1])
 
-                        if self._player_position == "B":
-                            board.b_add_token("0", token)
-
-                        if self._player_position == "C":
-                            board.c_add_token("0", token)
-
-                        if self._player_position == "D":
-                            board.d_add_token("0", token)
-
-                    elif 0 < int(new_pos) + int(self._start_pos) <= 56 and int(new_pos) < 51:
-                        board.general_add_token(f"{int(new_pos) + int(self._start_pos)}", token)
-
-                    elif int(new_pos) + int(self._start_pos) > 56 and int(new_pos) < 51:
-                        board.general_add_token(f"{int(new_pos) - (57 - int(self._start_pos))}", token)
-
-                    elif 57 > int(new_pos) >= 51:
-                        if self._player_position == "A":
-                            board.a_add_token(f"{self._player_position}{int(new_pos) - 50}", token)
-
-                        if self._player_position == "B":
-                            board.b_add_token(f"{self._player_position}{int(new_pos) - 50}", token)
-
-                        if self._player_position == "C":
-                            board.c_add_token(f"{self._player_position}{int(new_pos) - 50}", token)
-
-                        if self._player_position == "D":
-                            board.d_add_token(f"{self._player_position}{int(new_pos) - 50}", token)
-
-                else:
-                    if self._player_position == "A":
-                        board.a_remove_token(token)
-                        if new_pos == "-1":
-                            board.a_add_token("-1", token)
-
-                        if new_pos == "0":
-                            board.a_add_token("0", token)
-
-                        elif 0 < (int(new_pos) + int(self._start_pos) - 1) <= 56 and int(new_pos) < 51:
-                            board.general_add_token(f"{int(new_pos) + int(self._start_pos) - 1}", token)
-
-                        elif int(new_pos) + int(self._start_pos) - 1 >= 56 and int(new_pos) < 51:
-                            board.general_add_token(f"{int(new_pos) - (57 - int(self._start_pos))}", token)
-
-                        elif 51 <= int(new_pos) <= 57 or int(new_pos) == -1 or int(new_pos) == 0:
-                            board.a_add_token(new_pos, token)
-
-                        elif int(new_pos) > 57:
-                            bounce_pos = str(57 - (int(new_pos) - 57))
-                            return self.move_token(token_name, bounce_pos)
-
-                    elif self._player_position == "B":
-                        board.b_remove_token(token)
-                        if new_pos == "-1":
-                            board.b_add_token("-1", token)
-
-                        if new_pos == "0":
-                            board.b_add_token("0", token)
-
-                        elif 0 < (int(new_pos) + int(self._start_pos) - 1) <= 56 and int(new_pos) < 51:
-                            board.general_add_token(f"{int(new_pos) + int(self._start_pos) - 1}", token)
-
-                        elif int(new_pos) + int(self._start_pos) - 1 >= 56 and int(new_pos) < 51:
-                            board.general_add_token(f"{int(new_pos) - (57 - int(self._start_pos))}", token)
-
-                        elif 51 <= int(new_pos) <= 57 or int(new_pos) == -1 or int(new_pos) == 0:
-                            board.b_add_token(new_pos, token)
-
-                        elif int(new_pos) > 57:
-                            bounce_pos = str(57 - (int(new_pos) - 57))
-                            return self.move_token(token_name, bounce_pos)
-
-                    elif self._player_position == "C":
-                        board.c_remove_token(token)
-                        if new_pos == "-1":
-                            board.c_add_token("-1", token)
-
-                        if new_pos == "0":
-                            board.c_add_token("0", token)
-
-                        elif 0 < (int(new_pos) + int(self._start_pos) - 1) <= 56 and int(new_pos) < 51:
-                            board.general_add_token(f"{int(new_pos) + int(self._start_pos) - 1}", token)
-
-                        elif int(new_pos) + int(self._start_pos) - 1 >= 56 and int(new_pos) < 51:
-                            board.general_add_token(f"{int(new_pos) - (57 - int(self._start_pos))}", token)
-
-                        elif 51 <= int(new_pos) <= 57 or int(new_pos) == -1 or int(new_pos) == 0:
-                            board.c_add_token(new_pos, token)
-
-                        elif int(new_pos) > 57:
-                            bounce_pos = str(57 - (int(new_pos) - 57))
-                            return self.move_token(token_name, bounce_pos)
-
-                    elif self._player_position == "D":
-                        board.d_remove_token(token)
-                        if new_pos == "-1":
-                            board.d_add_token("-1", token)
-
-                        if new_pos == "0":
-                            board.d_add_token("0", token)
-
-                        elif 0 < (int(new_pos) + int(self._start_pos) - 1) <= 56 and int(new_pos) < 51:
-                            board.general_add_token(f"{int(new_pos) + int(self._start_pos) - 1}", token)
-
-                        elif int(new_pos) + int(self._start_pos) - 1 >= 56 and int(new_pos) < 51:
-                            board.general_add_token(f"{int(new_pos) - (57 - int(self._start_pos))}", token)
-
-                        elif 51 <= int(new_pos) <= 57 or int(new_pos) == -1 or int(new_pos) == 0:
-                            board.d_add_token(new_pos, token)
-
-                        elif int(new_pos) > 57:
-                            bounce_pos = str(57 - (int(new_pos) - 57))
-                            return self.move_token(token_name, bounce_pos)
-
-                token.update_token_location(new_pos)
-                self.update_step_count(token_name, new_pos)
 
 
     # For player creation: for playa in players: if playa == "A": (player object list).append(Player("A", "1", "50")
@@ -561,5 +298,8 @@ class LudoGame:
     # Make sure goofy stacked rule is accounted for.
 
 players = ["A", "B"]
-turns = [("A", 6), ("A", 4) ("B", 6), ("B", 1)]
+turns = []
 game = LudoGame()
+game.play_game(players, turns)
+player_A = game.get_player_by_position("A")
+
