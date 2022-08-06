@@ -426,7 +426,7 @@ class LudoGame:
                 player_object.update_step_count(token_name, new_pos)
 
                 if 0 < new_pos + int(player_object.get_start_pos()) - 1 <= 56 and new_pos < 51:
-                    for player in self._player_dict:
+                    for player in self._player_dict.values():
                         if player.get_space_name(player.get_token_p_step_count()) == player_object.get_space_name(new_pos) and player.get_space_name(player.get_token_q_step_count()) == player_object.get_space_name(new_pos) and player != player_object:
                             player.update_step_count("p", -1)
                             player.get_player_tokens()[0].update_token_location("-1")
@@ -444,7 +444,7 @@ class LudoGame:
 
 
                 elif new_pos + int(player_object.get_start_pos()) - 1 >= 56 and new_pos < 51:
-                    for player in self._player_dict:
+                    for player in self._player_dict.values():
                         if player.get_space_name(player.get_token_p_step_count()) == player_object.get_space_name(new_pos) and player.get_space_name(player.get_token_q_step_count()) == player_object.get_space_name(new_pos) and player != player_object:
                             player.update_step_count("p", -1)
                             player.get_player_tokens()[0].update_token_location("-1")
@@ -516,57 +516,44 @@ class LudoGame:
                                 self.move_token(self._player_dict[turn[0]], "q", 6)
 
                             else:
-                                if self._player_dict[turn[0]].get_token_p_step_count() >= 1 and self._player_dict[turn[0]].get_token_q_step_count() >= 1 and self._player_dict[turn[0]].get_token_p_step_count() + turn[1] < 51 and self._player_dict[turn[0]].get_token_q_step_count() + turn[1] < 51 and self._board.get_general_board_spots()[self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1])] is True and self._board.get_general_board_spots()[self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1])] is True:
-                                    p_counter = self._player_dict[turn[0]].get_token_p_step_count()
-                                    q_counter = self._player_dict[turn[0]].get_token_q_step_count()
-                                    for token in self._board.get_general_board_spots()[self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1])]:
-                                        if token.get_token_player_position != turn[0]:
-                                            for token in self._board.get_general_board_spots()[self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1])]:
-                                                if token.get_token_player_position != turn[0]:
-                                                    if p_counter < q_counter:
+                                if self._player_dict[turn[0]].get_token_p_step_count() + turn[1] <= 50 and self._player_dict[turn[0]].get_token_q_step_count() + turn[1] <= 50:
+                                    local_player_object = self.get_player_by_position(turn[0])
+                                    for player in self._player_dict:
+                                        if player == local_player_object:
+                                            continue
+                                        else:
+                                            if player.get_space_name(player.get_token_p_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]) or player.get_space_name(player.get_token_p_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]):
+                                                if player.get_space_name(player.get_token_q_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]) or player.get_space_name(player.get_token_p_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]):
+                                                    if self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count():
                                                         self.move_token(self._player_dict[turn[0]], "p", 6)
-                                                    elif q_counter < p_counter:
-                                                        self.move_token(self._player_dict[turn[0]], "q", 6)
 
                                                     else:
-                                                        if self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count():
-                                                            self.move_token(self._player_dict[turn[0]], "p", 6)
+                                                        self.move_token(self._player_dict[turn[0]], "q", 6)
 
-                                                        else:
-                                                            self.move_token(self._player_dict[turn[0]], "q", 6)
-                                        else:
-                                            self.move_token(self._player_dict[turn[0]], "q", 6)
+                                                elif player.get_space_name(player.get_token_p_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]):
+                                                    self.move_token(self._player_dict[turn[0]], "p", 6)
 
-                                elif self._player_dict[turn[0]].get_token_p_step_count() + turn[1] < 51 and self._player_dict[turn[0]].get_token_p_step_count() >= 1:
-                                    for token in self._board.get_general_board_spots()[self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1])]:
-                                        if token.get_token_player_position != turn[0]:
-                                            self.move_token(self._player_dict[turn[0]], "p", 6)
+                                                elif player.get_space_name(player.get_token_p_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]):
+                                                    self.move_token(self._player_dict[turn[0]], "q", 6)
 
-                                        else:
-                                            if self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count():
-                                                self.move_token(self._player_dict[turn[0]], "p", 6)
+                                            elif player.get_space_name(player.get_token_q_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]) or player.get_space_name(player.get_token_p_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]):
+                                                if player.get_space_name(player.get_token_p_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]) or player.get_space_name(player.get_token_p_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]):
+                                                    if self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count():
+                                                        self.move_token(self._player_dict[turn[0]], "p", 6)
 
                                             else:
-                                                self.move_token(self._player_dict[turn[0]], "q", 6)
+                                                if self._player_dict[turn[0]].get_token_p_step_count() <= self._player_dict[turn[0]].get_token_q_step_count():
+                                                    self.move_token(self._player_dict[turn[0]], "p", 6)
 
-                                elif self._player_dict[turn[0]].get_token_q_step_count() + turn[1] < 51 and self._player_dict[turn[0]].get_token_q_step_count() >= 1:
-                                    for token in self._board.get_general_board_spots()[self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1])]:
-                                        if token.get_token_player_position != turn[0]:
-                                            self.move_token(self._player_dict[turn[0]], "q", 6)
-
-                                        else:
-                                            if self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count():
-                                                self.move_token(self._player_dict[turn[0]], "p", 6)
-
-                                            else:
-                                                self.move_token(self._player_dict[turn[0]], "q", 6)
+                                                else:
+                                                    self.move_token(self._player_dict[turn[0]], "p", 6)
 
                                 else:
                                     if self._player_dict[turn[0]].get_token_p_step_count() <= self._player_dict[turn[0]].get_token_q_step_count():
                                         self.move_token(self._player_dict[turn[0]], "p", 6)
 
                                     else:
-                                        self.move_token(self._player_dict[turn[0]], "q", 6)
+                                        self.move_token(self._player_dict[turn[0]], "p", 6)
 
                     elif str(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]) == "57" or str(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]) == "57":
                         if str(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]) == "57":
@@ -575,48 +562,61 @@ class LudoGame:
                         elif str(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]) == "57":
                             self.move_token(self._player_dict[turn[0]], "q", turn[1])
 
-                    elif self._player_dict[turn[0]].get_token_p_step_count() + turn[1] < 51 or self._player_dict[turn[0]].get_token_q_step_count() + turn[1] < 51:
+                    if self._player_dict[turn[0]].get_token_p_step_count() + turn[1] <= 50 and self._player_dict[
+                        turn[0]].get_token_q_step_count() + turn[1] <= 50:
 
-                        if self._player_dict[turn[0]].get_token_p_step_count() >= 1 and self._player_dict[turn[0]].get_token_q_step_count() >= 1 and self._player_dict[turn[0]].get_token_p_step_count() + turn[1] < 51 and self._player_dict[turn[0]].get_token_q_step_count() + turn[1] < 51 and self._board.get_general_board_spots()[self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1])] is True and self._board.get_general_board_spots()[self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1])] is True:
-                            p_counter = self._player_dict[turn[0]].get_token_p_step_count()
-                            q_counter = self._player_dict[turn[0]].get_token_q_step_count()
-                            for token in self._board.get_general_board_spots()[self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1])]:
-                                if token.get_token_player_position != turn[0]:
-                                    for token in self._board.get_general_board_spots()[self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1])]:
-                                        if token.get_token_player_position != turn[0]:
-                                            if p_counter < q_counter:
-                                                self.move_token(self._player_dict[turn[0]], "p", turn[1])
-                                            elif q_counter < p_counter:
-                                                self.move_token(self._player_dict[turn[0]], "q", turn[1])
+                        local_player_object = self.get_player_by_position(turn[0])
 
-                                            else:
-                                                if self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count() and self._player_dict[turn[0]].get_token_p_step_count() >= 0:
-                                                    self.move_token(self._player_dict[turn[0]], "p", turn[1])
+                        for player in self._player_dict.values():
 
-                                                elif self._player_dict[turn[0]].get_token_q_step_count() < self._player_dict[turn[0]].get_token_p_step_count() and self._player_dict[turn[0]].get_token_q_step_count() >= 0:
-                                                    self.move_token(self._player_dict[turn[0]], "q", turn[1])
+                            if player == local_player_object:
+
+                                continue
+
+                            else:
+
+                                if player.get_space_name(player.get_token_p_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]) or player.get_space_name(player.get_token_p_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]):
+
+                                    if player.get_space_name(player.get_token_q_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]) or player.get_space_name(player.get_token_p_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]):
+
+                                        if self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count():
+
+                                            self.move_token(self._player_dict[turn[0]], "p", turn[1])
+
+
                                         else:
+
                                             self.move_token(self._player_dict[turn[0]], "q", turn[1])
 
 
-                        elif self._player_dict[turn[0]].get_token_p_step_count() + turn[1] < 51 and self._player_dict[turn[0]].get_token_p_step_count() >= 1:
-                            for token in self._board.get_general_board_spots()[self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1])]:
-                                if token.get_token_player_position != turn[0]:
-                                    self.move_token(self._player_dict[turn[0]], "p", turn[1])
+                                    elif player.get_space_name(player.get_token_p_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]):
 
-                        elif self._player_dict[turn[0]].get_token_q_step_count() + turn[1] < 51 and self._player_dict[turn[0]].get_token_q_step_count() >= 1:
-                            for token in self._board.get_general_board_spots()[self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1])]:
-                                if token.get_token_player_position != turn[0]:
-                                    self.move_token(self._player_dict[turn[0]], "q", turn[1])
+                                        self.move_token(self._player_dict[turn[0]], "p", turn[1])
 
-                        elif self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count() and self._player_dict[turn[0]].get_token_p_step_count() >= 0:
-                            self.move_token(self._player_dict[turn[0]], "p", turn[1])
 
-                        elif self._player_dict[turn[0]].get_token_q_step_count() < self._player_dict[turn[0]].get_token_p_step_count() and self._player_dict[turn[0]].get_token_q_step_count() >= 0:
-                            self.move_token(self._player_dict[turn[0]], "q", turn[1])
+                                    elif player.get_space_name(player.get_token_p_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]):
 
-                        else:
-                            self.move_token(self._player_dict[turn[0]], "p", turn[1])
+                                        self.move_token(self._player_dict[turn[0]], "q", turn[1])
+
+
+                                elif player.get_space_name(player.get_token_q_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]) or player.get_space_name(player.get_token_p_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]):
+
+                                    if player.get_space_name(player.get_token_p_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]) or player.get_space_name(player.get_token_p_step_count()) == self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]):
+
+                                        if self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count():
+                                            self.move_token(self._player_dict[turn[0]], "p", turn[1])
+
+
+                                else:
+
+                                    if self._player_dict[turn[0]].get_token_p_step_count() <= self._player_dict[turn[0]].get_token_q_step_count():
+
+                                        self.move_token(self._player_dict[turn[0]], "p", turn[1])
+
+
+                                    else:
+
+                                        self.move_token(self._player_dict[turn[0]], "p", turn[1])
 
                     elif self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count() and self._player_dict[turn[0]].get_token_p_step_count() >= 0:
                         self.move_token(self._player_dict[turn[0]], "p", turn[1])
@@ -635,7 +635,7 @@ class LudoGame:
 
 
 players = ["A", "B"]
-turns = [("A", 6), ("A", 6)]
+turns = [("A", 6)]
 game = LudoGame()
 box = game.play_game(players, turns)
 player_A = game.get_player_by_position("A")
