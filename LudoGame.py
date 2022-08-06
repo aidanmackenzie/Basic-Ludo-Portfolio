@@ -271,8 +271,9 @@ class LudoGame:
                 return "Player not found!"
 
     def move_token(self, player_object, token_name, steps_to_take_int):
-        """Moves a player's token from initial spot to new spot based on their 'roll'."""
+        """Helps to move a player's token from initial spot to new spot based on their 'roll'."""
         original_pos = None
+        this_token = None
         if token_name == "p":
             original_pos = player_object.get_token_p_step_count()
 
@@ -280,12 +281,11 @@ class LudoGame:
             original_pos = player_object.get_token_q_step_count()
 
         new_pos = original_pos + steps_to_take_int
-
         for token in player_object.get_player_tokens():
             if token.get_token_name() == token_name:
                 if 1 <= int(token.get_token_location()) <= 50:
                     self._board.general_remove_token(token)                         # self._player_dict["A"].get_player_tokens()[0]
-                    if new_pos == -1:
+                    if new_pos == -1:                                               # self._board.a_add_token("-1", self._player_dict["A"].get_player_tokens()[0])
                         if player_object.get_player_position == "A":
                             self._board.a_add_token("-1", token)
 
@@ -437,7 +437,6 @@ class LudoGame:
                             send_home_int = int(token.get_token_location()) - int(token.get_token_location()) - 1
                             return self.move_token(self.get_player_by_position(token.get_token_player_position()), token.get_token_name(), send_home_int)
 
-
     def play_game(self, player_list, turn_list):
         """Plays the game of Ludo with the given player list and turn list."""
         for player in player_list:
@@ -445,6 +444,7 @@ class LudoGame:
                 self._player_dict[player] = Player(player, "1", "50")
                 self._board.a_add_token("-1", self._player_dict["A"].get_player_tokens()[0])
                 self._board.a_add_token("-1", self._player_dict["A"].get_player_tokens()[1])
+
 
             elif player == "B":
                 self._player_dict[player] = Player(player, "15", "8")
@@ -539,7 +539,7 @@ class LudoGame:
                                                 self.move_token(self._player_dict[turn[0]], "q", 6)
 
                                 else:
-                                    if self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count():
+                                    if self._player_dict[turn[0]].get_token_p_step_count() <= self._player_dict[turn[0]].get_token_q_step_count():
                                         self.move_token(self._player_dict[turn[0]], "p", 6)
 
                                     else:
@@ -612,12 +612,14 @@ class LudoGame:
 
 
 players = ["A", "B"]
-turns = [("A", 6)]
+turns = [("A", 6), ("A", 6)]
 game = LudoGame()
 box = game.play_game(players, turns)
 player_A = game.get_player_by_position("A")
 print(box)
 print(player_A.get_token_p_step_count())
 print(player_A.get_token_q_step_count())
+print("")
 print(game.get_board().get_general_board_spots())
+
 print(game.get_board().get_a_board_spots())
