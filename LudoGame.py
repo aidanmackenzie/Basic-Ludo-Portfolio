@@ -586,6 +586,15 @@ class LudoGame:
                                 if token.get_token_player_position != turn[0]:
                                     self.move_token(self._player_dict[turn[0]], "q", turn[1])
 
+                        elif self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count():
+                            self.move_token(self._player_dict[turn[0]], "p", turn[1])
+
+                        elif self._player_dict[turn[0]].get_token_q_step_count() < self._player_dict[turn[0]].get_token_p_step_count():
+                            self.move_token(self._player_dict[turn[0]], "q", turn[1])
+
+                        else:
+                            self.move_token(self._player_dict[turn[0]], "p", turn[1])
+
                     elif self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count():
                         self.move_token(self._player_dict[turn[0]], "p", turn[1])
 
@@ -603,7 +612,7 @@ class LudoGame:
 
 
 players = ["A", "B"]
-turns = [("A", 6), ("A", 6), ("A", 6), ("A", 6)]
+turns = [("A", 6), ("A", 2)]
 game = LudoGame()
 box = game.play_game(players, turns)
 player_A = game.get_player_by_position("A")
