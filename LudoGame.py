@@ -422,8 +422,21 @@ class LudoGame:
                             new_pos = bounce_pos
                             self._board.d_add_token(new_pos, token)
 
-                token.update_token_location(new_pos)
+                token.update_token_location(str(new_pos))
                 player_object.update_step_count(token_name, new_pos)
+
+                if 0 < new_pos + int(player_object.get_start_pos()) - 1 <= 56 and new_pos < 51:
+                    for token in self._board.get_general_board_spots()[f"{new_pos + int(player_object.get_start_pos()) - 1}"]:
+                        if token.get_token_player_position() != player_object.get_player_position():
+                            send_home_int = int(token.get_token_location()) - int(token.get_token_location()) - 1
+                            return self.move_token(self.get_player_by_position(token.get_token_player_position()), token.get_token_name(), send_home_int)
+
+                elif new_pos + int(player_object.get_start_pos()) - 1 >= 56 and new_pos < 51:
+                    for token in self._board.get_general_board_spots()[f"{new_pos - (57 - int(player_object.get_start_pos()))}"]:
+                        if token.get_token_player_position() != player_object.get_player_position():
+                            send_home_int = int(token.get_token_location()) - int(token.get_token_location()) - 1
+                            return self.move_token(self.get_player_by_position(token.get_token_player_position()), token.get_token_name(), send_home_int)
+
 
     def play_game(self, player_list, turn_list):
         """Plays the game of Ludo with the given player list and turn list."""
@@ -590,7 +603,7 @@ class LudoGame:
 
 
 players = ["A", "B"]
-turns = [("A", 6), ("A", 6), ("A", 1)]
+turns = [("A", 6)]
 game = LudoGame()
 box = game.play_game(players, turns)
 player_A = game.get_player_by_position("A")
