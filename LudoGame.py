@@ -284,7 +284,7 @@ class LudoGame:
         for token in player_object.get_player_tokens():
             if token.get_token_name() == token_name:
                 if 1 <= int(token.get_token_location()) <= 50:
-                    self._board.general_remove_token(token)
+                    self._board.general_remove_token(token)                         # self._player_dict["A"].get_player_tokens()[0]
                     if new_pos == -1:
                         if player_object.get_player_position == "A":
                             self._board.a_add_token("-1", token)
@@ -340,7 +340,7 @@ class LudoGame:
                             self._board.a_add_token("-1", token)
 
                         elif new_pos == 0:
-                            self._board.a_add_token("0", token)
+                            self._board.a_add_token("0", self._player_dict["A"].get_player_tokens()[0])
 
                         elif 0 < new_pos + int(player_object.get_start_pos()) - 1 <= 56 and new_pos < 51:
                             self._board.general_add_token(f"{new_pos + int(player_object.get_start_pos()) - 1}", token)
@@ -612,10 +612,12 @@ class LudoGame:
 
 
 players = ["A", "B"]
-turns = [("A", 6), ("A", 2), ("A", 6), ("A", 3)]
+turns = [("A", 6)]
 game = LudoGame()
 box = game.play_game(players, turns)
 player_A = game.get_player_by_position("A")
 print(box)
 print(player_A.get_token_p_step_count())
 print(player_A.get_token_q_step_count())
+print(game.get_board().get_general_board_spots())
+print(game.get_board().get_a_board_spots())
