@@ -603,7 +603,7 @@ class LudoGame:
 
 
 players = ["A", "B"]
-turns = [("A", 6)]
+turns = [("A", 6), ("A", 6), ("A", 6), ("A", 6)]
 game = LudoGame()
 box = game.play_game(players, turns)
 player_A = game.get_player_by_position("A")
