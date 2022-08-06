@@ -268,8 +268,22 @@ class LudoGame:
 
     def move_token(self, player_object, token_name, steps_to_take_int):
         """Moves a player's token from initial spot to new spot based on their 'roll'."""
-        # Need to rewrite this entire thing.
-        # Possibly use helper function if it needs to hold original pos
+        if token_name == "p":
+            original_pos = player_object.get_token_q_step_count
+
+        else:
+            original_pos = player_object.get_token_q_step_count
+
+        new_pos = original_pos + steps_to_take_int
+        player_object.update_step_token(token_name, new_pos)
+        for token in player_object.get_player_tokens():
+            if token.get_token_name() == token_name:
+                token.update_token_location(str(new_pos))
+
+
+
+
+
 
     def play_game(self, player_list, turn_list):
         """Plays the game of Ludo with the given player list and turn list."""
