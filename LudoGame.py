@@ -326,17 +326,17 @@ class LudoGame:
                         if self._player_dict[turn[0]].get_token_p_step_count() == -1 and self._player_dict[turn[0]].get_token_q_step_count() == -1:
                             self.move_token(self._player_dict[turn[0]], "p", 1)
 
-                        elif self._player_dict[turn[0]].get_token_p_step_count() == "-1":
+                        elif self._player_dict[turn[0]].get_token_p_step_count() == -1:
                             self.move_token(self._player_dict[turn[0]], "p", 1)
 
-                        elif self._player_dict[turn[0]].get_token_q_step_count() == "-1":
+                        elif self._player_dict[turn[0]].get_token_q_step_count() == -1:
                             self.move_token(self._player_dict[turn[0]], "q", 1)
 
                         else:
-                            if self._player_dict[turn[0]].get_token_p_step_count() == "51":
+                            if self._player_dict[turn[0]].get_token_p_step_count() == 51:
                                 self.move_token(self._player_dict[turn[0]], "p", 6)
 
-                            elif self._player_dict[turn[0]].get_token_q_step_count() == "51":
+                            elif self._player_dict[turn[0]].get_token_q_step_count() == 51:
                                 self.move_token(self._player_dict[turn[0]], "q", 6)
 
                             else:
