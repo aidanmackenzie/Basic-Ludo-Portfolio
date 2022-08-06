@@ -205,7 +205,7 @@ class Player:
 
     def get_completed(self):
         """Returns True if player has finished game, False otherwise."""
-        if self._token_q_step_count == "57" and self._token_p_step_count == "57":
+        if self._token_q_step_count == 57 and self._token_p_step_count == 57:
             return True
 
         else:
@@ -250,7 +250,7 @@ class LudoGame:
         """Returns the game board for current game."""
         return self._board
 
-    def get_player_list(self):
+    def get_player_dict(self):
         """Returns the player list for the current game."""
         return self._player_dict
 
@@ -268,15 +268,15 @@ class LudoGame:
 
     def move_token(self, player_object, token_name, steps_to_take_int):
         """Moves a player's token from initial spot to new spot based on their 'roll'."""
-        # Need to rewrite this entire thing. SHIT.
-        #Possibly use helper function if need to hold original pos
+        # Need to rewrite this entire thing.
+        # Possibly use helper function if it needs to hold original pos
 
     def play_game(self, player_list, turn_list):
         """Plays the game of Ludo with the given player list and turn list."""
         for player in player_list:
             if player == "A":
                 self._player_dict[player] = Player(player, "1", "50")
-                self._board.a_add_token("51", self._player_dict["A"].get_player_tokens()[0])
+                self._board.a_add_token("-1", self._player_dict["A"].get_player_tokens()[0])
                 self._board.a_add_token("-1", self._player_dict["A"].get_player_tokens()[1])
 
             elif player == "B":
@@ -294,9 +294,12 @@ class LudoGame:
                 self._board.c_add_token("-1", self._player_dict["A"].get_player_tokens()[0])
                 self._board.c_add_token("-1", self._player_dict["A"].get_player_tokens()[1])
 
+            else:
+                print("Player position not available!")
+
         for turn in turn_list:
             if self._player_dict[turn[0]].get_token_p_step_count == 57 and self._player_dict[turn[0]].get_token_q_step_count == 57:     # checks if both players pieces are at end
-                pass
+                return
 
             else:
                 if self._player_dict[turn[0]].get_token_p_step_count == self._player_dict[turn[0]].get_token_q_step_count and self._player_dict[turn[0]].get_token_p_step_count >= 1:  # checks if pieces are stacked, then moves together
@@ -323,13 +326,13 @@ class LudoGame:
                                 self.move_token(self._player_dict[turn[0]], "q", 6)
 
                             else:
-                                if int(self._player_dict[turn[0]].get_token_p_step_count) + turn[1] < 51:
-                                    for token in self._board.get_general_board_spots()[self._player_dict[turn[0]].get_space_name(int(self._player_dict[turn[0]].get_token_p_step_count) + turn[1])]:
+                                if self._player_dict[turn[0]].get_token_p_step_count + turn[1] < 51:
+                                    for token in self._board.get_general_board_spots()[self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count + turn[1])]:
                                         if token.get_token_player_position != turn[0]:
                                             self.move_token(self._player_dict[turn[0]], "p", 6)
 
                                         else:
-                                            if int(self._player_dict[turn[0]].get_token_p_step_count) < int(self._player_dict[turn[0]].get_token_q_step_count):
+                                            if self._player_dict[turn[0]].get_token_p_step_count < int(self._player_dict[turn[0]].get_token_q_step_count):
                                                 self.move_token(self._player_dict[turn[0]], "p", 6)
 
                                             else:
