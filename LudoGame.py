@@ -277,187 +277,57 @@ class LudoGame:
         if token_name == "p":
             original_pos = player_object.get_token_p_step_count()
 
-        elif token_name == "q":
+        else:
             original_pos = player_object.get_token_q_step_count()
 
         new_pos = original_pos + steps_to_take_int
-        for token in player_object.get_player_tokens():
-            if token.get_token_name() == token_name:
-                if 1 <= int(token.get_token_location()) <= 50:
-                    self._board.general_remove_token(token)                         # self._player_dict["A"].get_player_tokens()[0]
-                    if new_pos == -1:                                               # self._board.a_add_token("-1", self._player_dict["A"].get_player_tokens()[0])
-                        if player_object.get_player_position == "A":
-                            self._board.a_add_token("-1", token)
 
-                        elif player_object.get_player_position == "B":
-                            self._board.b_add_token("-1", token)
+        if new_pos > 57:
+            bounce_pos = str(57 - (new_pos - 57))
+            new_pos = bounce_pos
 
-                        elif player_object.get_player_position == "C":
-                            self._board.c_add_token("-1", token)
 
-                        elif player_object.get_player_position == "D":
-                            self._board.d_add_token("-1", token)
+        if token_name == "p":
+            player_object.get_player_tokens()[0].update_token_location(str(new_pos))
+            player_object.update_step_count(token_name, new_pos)
 
-                    elif new_pos == 0:
-                        if player_object.get_player_position == "A":
-                            self._board.a_add_token("0", token)
+        else:
+            player_object.get_player_tokens()[1].update_token_location(str(new_pos))
+        player_object.update_step_count(token_name, new_pos)
 
-                        elif player_object.get_player_position == "B":
-                            self._board.b_add_token("0", token)
+        if 0 < new_pos + int(player_object.get_start_pos()) - 1 <= 56 and new_pos < 51:
+            for player in self._player_dict.values():
+                if player.get_space_name(player.get_token_p_step_count()) == player_object.get_space_name(new_pos) and player.get_space_name(player.get_token_q_step_count()) == player_object.get_space_name(new_pos) and player != player_object:
+                    player.update_step_count("p", -1)
+                    player.get_player_tokens()[0].update_token_location("-1")
+                    player.update_step_count("q", -1)
+                    player.get_player_tokens()[1].update_token_location("-1")
 
-                        elif player_object.get_player_position == "C":
-                            self._board.c_add_token("0", token)
+                elif player.get_space_name(player.get_token_p_step_count()) == player_object.get_space_name(new_pos) and player != player_object:
+                    player.update_step_count("p", -1)
+                    player.get_player_tokens()[0].update_token_location("-1")
 
-                        elif player_object.get_player_position == "D":
-                            self._board.d_add_token("0", token)
-
-                    elif 0 < new_pos + int(player_object.get_start_pos()) <= 56 and new_pos < 51:
-                        self._board.general_add_token(f"{new_pos + int(player_object.get_start_pos())}", token)
-
-                    elif new_pos + int(player_object.get_start_pos()) > 56 and new_pos < 51:
-                        self._board.general_add_token(f"{new_pos - (57 - int(player_object.get_start_pos()))}", token)
-
-                    elif 57 > new_pos >= 51:
-                        if player_object.get_player_position == "A":
-                            self._board.a_add_token(f"A{new_pos - 50}", token)
-
-                        elif player_object.get_player_position == "B":
-                            self._board.b_add_token(f"B{new_pos - 50}", token)
-
-                        elif player_object.get_player_position == "B":
-                            self._board.b_add_token(f"B{new_pos - 50}", token)
-
-                        elif player_object.get_player_position == "C":
-                            self._board.c_add_token(f"C{new_pos - 50}", token)
-
-                        elif player_object.get_player_position == "D":
-                            self._board.d_add_token(f"D{new_pos - 50}", token)
-
-                else:
-                    if player_object.get_player_position == "A":
-                        self._board.a_remove_token(token)
-                        if new_pos == -1:
-                            self._board.a_add_token("-1", token)
-
-                        elif new_pos == 0:
-                            self._board.a_add_token("0", self._player_dict["A"].get_player_tokens()[0])
-
-                        elif 0 < new_pos + int(player_object.get_start_pos()) - 1 <= 56 and new_pos < 51:
-                            self._board.general_add_token(f"{new_pos + int(player_object.get_start_pos()) - 1}", token)
-
-                        elif new_pos + int(player_object.get_start_pos()) - 1 >= 56 and new_pos < 51:
-                            self._board.general_add_token(f"{new_pos - (57 - int(player_object.get_start_pos()))}", token)
-
-                        elif 51 <= new_pos <= 57 or new_pos == -1 or new_pos == 0:
-                            self._board.a_add_token(new_pos, token)
-
-                        elif new_pos > 57:
-                            bounce_pos = str(57 - (new_pos - 57))
-                            new_pos = bounce_pos
-                            self._board.a_add_token(new_pos, token)
-
-                    elif player_object.get_player_position == "B":
-                        self._board.b_remove_token(token)
-                        if new_pos == -1:
-                            self._board.b_add_token("-1", token)
-
-                        elif new_pos == 0:
-                            self._board.b_add_token("0", token)
-
-                        elif 0 < new_pos + int(player_object.get_start_pos()) - 1 <= 56 and new_pos < 51:
-                            self._board.general_add_token(f"{new_pos + int(player_object.get_start_pos()) - 1}", token)
-
-                        elif new_pos + int(player_object.get_start_pos()) - 1 >= 56 and new_pos < 51:
-                            self._board.general_add_token(f"{new_pos - (57 - int(player_object.get_start_pos()))}", token)
-
-                        elif 51 <= new_pos <= 57 or new_pos == -1 or new_pos == 0:
-                            self._board.b_add_token(new_pos, token)
-
-                        elif new_pos > 57:
-                            bounce_pos = str(57 - (new_pos - 57))
-                            new_pos = bounce_pos
-                            self._board.b_add_token(new_pos, token)
-
-                    elif player_object.get_player_position == "C":
-                        self._board.c_remove_token(token)
-                        if new_pos == -1:
-                            self._board.c_add_token("-1", token)
-
-                        elif new_pos == 0:
-                            self._board.c_add_token("0", token)
-
-                        elif 0 < new_pos + int(player_object.get_start_pos()) - 1 <= 56 and new_pos < 51:
-                            self._board.general_add_token(f"{new_pos + int(player_object.get_start_pos()) - 1}", token)
-
-                        elif new_pos + int(player_object.get_start_pos()) - 1 >= 56 and new_pos < 51:
-                            self._board.general_add_token(f"{new_pos - (57 - int(player_object.get_start_pos()))}", token)
-
-                        elif 51 <= new_pos <= 57 or new_pos == -1 or new_pos == 0:
-                            self._board.c_add_token(new_pos, token)
-
-                        elif new_pos > 57:
-                            bounce_pos = str(57 - (new_pos - 57))
-                            new_pos = bounce_pos
-                            self._board.c_add_token(new_pos, token)
-
-                    elif player_object.get_player_position == "D":
-                        self._board.d_remove_token(token)
-                        if new_pos == -1:
-                            self._board.d_add_token("-1", token)
-
-                        elif new_pos == 0:
-                            self._board.d_add_token("0", token)
-
-                        elif 0 < new_pos + int(player_object.get_start_pos()) - 1 <= 56 and new_pos < 51:
-                            self._board.general_add_token(f"{new_pos + int(player_object.get_start_pos()) - 1}", token)
-
-                        elif new_pos + int(player_object.get_start_pos()) - 1 >= 56 and new_pos < 51:
-                            self._board.general_add_token(f"{new_pos - (57 - int(player_object.get_start_pos()))}", token)
-
-                        elif 51 <= new_pos <= 57 or new_pos == -1 or new_pos == 0:
-                            self._board.d_add_token(new_pos, token)
-
-                        elif new_pos > 57:
-                            bounce_pos = str(57 - (new_pos - 57))
-                            new_pos = bounce_pos
-                            self._board.d_add_token(new_pos, token)
-
-                token.update_token_location(str(new_pos))
-                player_object.update_step_count(token_name, new_pos)
-
-                if 0 < new_pos + int(player_object.get_start_pos()) - 1 <= 56 and new_pos < 51:
-                    for player in self._player_dict.values():
-                        if player.get_space_name(player.get_token_p_step_count()) == player_object.get_space_name(new_pos) and player.get_space_name(player.get_token_q_step_count()) == player_object.get_space_name(new_pos) and player != player_object:
-                            player.update_step_count("p", -1)
-                            player.get_player_tokens()[0].update_token_location("-1")
-                            player.update_step_count("q", -1)
-                            player.get_player_tokens()[1].update_token_location("-1")
-
-                        elif player.get_space_name(player.get_token_p_step_count()) == player_object.get_space_name(new_pos) and player != player_object:
-                            player.update_step_count("p", -1)
-                            player.get_player_tokens()[0].update_token_location("-1")
-
-                        elif player.get_space_name(player.get_token_q_step_count()) == player_object.get_space_name(new_pos) and player != player_object:
-                            player.update_step_count("q", -1)
-                            player.get_player_tokens()[1].update_token_location("-1")
+                elif player.get_space_name(player.get_token_q_step_count()) == player_object.get_space_name(new_pos) and player != player_object:
+                    player.update_step_count("q", -1)
+                    player.get_player_tokens()[1].update_token_location("-1")
 
 
 
-                elif new_pos + int(player_object.get_start_pos()) - 1 >= 56 and new_pos < 51:
-                    for player in self._player_dict.values():
-                        if player.get_space_name(player.get_token_p_step_count()) == player_object.get_space_name(new_pos) and player.get_space_name(player.get_token_q_step_count()) == player_object.get_space_name(new_pos) and player != player_object:
-                            player.update_step_count("p", -1)
-                            player.get_player_tokens()[0].update_token_location("-1")
-                            player.update_step_count("q", -1)
-                            player.get_player_tokens()[1].update_token_location("-1")
+        elif new_pos + int(player_object.get_start_pos()) - 1 >= 56 and new_pos < 51:
+            for player in self._player_dict.values():
+                if player.get_space_name(player.get_token_p_step_count()) == player_object.get_space_name(new_pos) and player.get_space_name(player.get_token_q_step_count()) == player_object.get_space_name(new_pos) and player != player_object:
+                    player.update_step_count("p", -1)
+                    player.get_player_tokens()[0].update_token_location("-1")
+                    player.update_step_count("q", -1)
+                    player.get_player_tokens()[1].update_token_location("-1")
 
-                        elif player.get_space_name(player.get_token_p_step_count()) == player_object.get_space_name(new_pos) and player != player_object:
-                            player.update_step_count("p", -1)
-                            player.get_player_tokens()[0].update_token_location("-1")
+                elif player.get_space_name(player.get_token_p_step_count()) == player_object.get_space_name(new_pos) and player != player_object:
+                    player.update_step_count("p", -1)
+                    player.get_player_tokens()[0].update_token_location("-1")
 
-                        elif player.get_space_name(player.get_token_q_step_count()) == player_object.get_space_name(new_pos) and player != player_object:
-                            player.update_step_count("q", -1)
-                            player.get_player_tokens()[1].update_token_location("-1")
+                elif player.get_space_name(player.get_token_q_step_count()) == player_object.get_space_name(new_pos) and player != player_object:
+                    player.update_step_count("q", -1)
+                    player.get_player_tokens()[1].update_token_location("-1")
 
 
     def play_game(self, player_list, turn_list):
@@ -489,15 +359,14 @@ class LudoGame:
 
         for turn in turn_list:
             if self._player_dict[turn[0]].get_token_p_step_count() == 57 and self._player_dict[turn[0]].get_token_q_step_count() == 57:
-                return
+                continue
 
             else:
-                if self._player_dict[turn[0]].get_token_p_step_count() == self._player_dict[turn[0]].get_token_q_step_count() and self._player_dict[turn[0]].get_token_p_step_count() >= 1:
+                if self._player_dict[turn[0]].get_token_p_step_count() == self._player_dict[turn[0]].get_token_q_step_count() and self._player_dict[turn[0]].get_token_p_step_count() >= 1 and self._player_dict[turn[0]].get_token_q_step_count() >= 1:
                     self.move_token(self._player_dict[turn[0]], "p", turn[1])
                     self.move_token(self._player_dict[turn[0]], "q", turn[1])
 
                 else:
-
                     if turn[1] == 6:
                         if self._player_dict[turn[0]].get_token_p_step_count() == -1 and self._player_dict[turn[0]].get_token_q_step_count() == -1:
                             self.move_token(self._player_dict[turn[0]], "p", 1)
@@ -635,7 +504,7 @@ class LudoGame:
 
 
 players = ["A", "B"]
-turns = [("A", 6)]
+turns = [("A", 6), ("A", 6)]
 game = LudoGame()
 box = game.play_game(players, turns)
 player_A = game.get_player_by_position("A")
