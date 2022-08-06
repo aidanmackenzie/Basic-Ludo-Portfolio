@@ -217,30 +217,28 @@ class Player:
 
     def get_space_name(self, total_steps):
         """Returns the name of the space the token with given step count has landed on."""
-        for token in self._player_tokens:
-            if token.get_token_location() == str(total_steps):
-                if str(total_steps) == "-1":
-                    return "H"
+        if str(total_steps) == "-1":
+            return "H"
 
-                elif str(total_steps) == "0":
-                    return "R"
+        elif str(total_steps) == "0":
+            return "R"
 
-                elif str(total_steps) == "57":
-                    return "E"
+        elif str(total_steps) == "57":
+            return "E"
 
-                elif 50 < total_steps < 57:
-                    return f"{self._player_position}{total_steps - 50}"
+        elif 50 < total_steps < 57:
+            return f"{self._player_position}{total_steps - 50}"
 
-                elif total_steps + int(self._start_pos) - 57 == 0:
-                    return "56"
+        elif total_steps + int(self._start_pos) - 57 == 0:
+            return "56"
 
-                elif total_steps + int(self._start_pos) >= 57:
-                    return f"{(total_steps + int(self._start_pos)) - 57}"
+        elif total_steps + int(self._start_pos) >= 57:
+            return f"{(total_steps + int(self._start_pos)) - 57}"
 
-                else:
-                    return f"{total_steps + int(self._start_pos) - 1}"
+        else:
+            return f"{total_steps + int(self._start_pos) - 1}"
 
- 
+
 class LudoGame:
     """Represents the game as played."""
 
