@@ -130,7 +130,12 @@ class LudoGame:
             original_pos = player_object.get_token_q_step_count()
 
         new_pos = original_pos + steps_to_take_int
-        player_object.update_step_count(token_name, new_pos)
+        if new_pos > 57:
+            player_object.update_step_count(token_name, (57 - (new_pos - 57)))
+
+        else:
+            player_object.update_step_count(token_name, new_pos)
+
 
         if 0 < new_pos + int(player_object.get_start_pos()) - 1 <= 56 and new_pos < 51:
             for player in self._player_dict.values():
@@ -170,8 +175,6 @@ class LudoGame:
                 elif player.get_space_name(player.get_token_q_step_count()) == player_object.get_space_name(
                         new_pos) and player != player_object:
                     player.update_step_count("q", -1)
-
-
 
     def play_game(self, player_list, turn_list):
         """Plays the game of Ludo with the given player list and turn list."""
@@ -279,3 +282,28 @@ class LudoGame:
             self._final_token_locations.append(player.get_space_name(player.get_token_q_step_count()))
 
         return self._final_token_locations
+
+
+#players = ['A', 'B']
+#turns = [('A', 6), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 4)]
+#game = LudoGame()
+#current_tokens_space = game.play_game(players, turns)
+#player_A = game.get_player_by_position('A')
+#print(current_tokens_space)
+#player_B = game.get_player_by_position('B')
+
+# Should return [A6, H, H, H]
+
+
+
+
+
+#players = ['A', 'B']
+#turns = [('A', 6), ('A', 6), ('A', 1), ('A', 4), ('A', 4), ('A', 6), ('B', 6), ('B', 6), ('B', 2), ('B', 2), ('A', 6)]
+#game = LudoGame()
+#current_tokens_space = game.play_game(players, turns)
+#player_A = game.get_player_by_position('A')
+#print(current_tokens_space)
+#player_B = game.get_player_by_position('B')
+
+# Should return [5, 16, H, H]
