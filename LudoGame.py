@@ -198,7 +198,7 @@ class LudoGame:
 
         for turn in turn_list:
             if self._player_dict[turn[0]].get_token_p_step_count() == 57 and self._player_dict[turn[0]].get_token_q_step_count() == 57:
-                return
+                continue
 
             else:
                 if self._player_dict[turn[0]].get_token_p_step_count() == self._player_dict[turn[0]].get_token_q_step_count() and self._player_dict[turn[0]].get_token_p_step_count() >= 1:
@@ -285,15 +285,13 @@ class LudoGame:
 
 
 #players = ['A', 'B']
-#turns = [('A', 6), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 4)]
+#turns = [('A', 6), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 2), ('A', 6), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 2), ("A", 1)]
 #game = LudoGame()
 #current_tokens_space = game.play_game(players, turns)
 #player_A = game.get_player_by_position('A')
 #print(current_tokens_space)
+#print(player_A.get_completed())
 #player_B = game.get_player_by_position('B')
-
-# Should return [A6, H, H, H]
-
 
 
 
