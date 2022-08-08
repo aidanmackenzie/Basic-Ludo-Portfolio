@@ -136,7 +136,6 @@ class LudoGame:
         else:
             player_object.update_step_count(token_name, new_pos)
 
-
         if 0 < new_pos <= 56 and new_pos < 51:
             for player in self._player_dict.values():
                 if player.get_space_name(player.get_token_p_step_count()) == player_object.get_space_name(
@@ -191,21 +190,25 @@ class LudoGame:
                 print("Player position not available!")
 
         for turn in turn_list:
-            if self._player_dict[turn[0]].get_token_p_step_count() == 57 and self._player_dict[turn[0]].get_token_q_step_count() == 57:
+            if self._player_dict[turn[0]].get_token_p_step_count() == 57 and \
+                    self._player_dict[turn[0]].get_token_q_step_count() == 57:
                 continue
 
             else:
-                if self._player_dict[turn[0]].get_token_p_step_count() == self._player_dict[turn[0]].get_token_q_step_count() and self._player_dict[turn[0]].get_token_p_step_count() >= 1:
+                if self._player_dict[turn[0]].get_token_p_step_count() == self._player_dict[turn[0]].get_token_q_step_count() \
+                        and self._player_dict[turn[0]].get_token_p_step_count() >= 1:
                     self.move_token(self._player_dict[turn[0]], "p", turn[1])
                     self.move_token(self._player_dict[turn[0]], "q", turn[1])
 
                 else:
 
                     if turn[1] == 6:
-                        if self._player_dict[turn[0]].get_token_p_step_count() == -1 and self._player_dict[turn[0]].get_token_q_step_count() == -1:
+                        if self._player_dict[turn[0]].get_token_p_step_count() == -1 and \
+                                self._player_dict[turn[0]].get_token_q_step_count() == -1:
                             self.move_token(self._player_dict[turn[0]], "p", 1)
 
-                        elif self._player_dict[turn[0]].get_token_p_step_count() == -1 or self._player_dict[turn[0]].get_token_q_step_count() == -1:
+                        elif self._player_dict[turn[0]].get_token_p_step_count() == -1 or \
+                                self._player_dict[turn[0]].get_token_q_step_count() == -1:
                             if self._player_dict[turn[0]].get_token_p_step_count() == -1:
                                 self.move_token(self._player_dict[turn[0]], "p", 1)
                             else:
@@ -218,7 +221,8 @@ class LudoGame:
                             elif self._player_dict[turn[0]].get_token_q_step_count() == 51:
                                 self.move_token(self._player_dict[turn[0]], "q", 6)
 
-                            elif self._player_dict[turn[0]].get_token_p_step_count() + turn[1] < 51 and self._player_dict[turn[0]].get_token_q_step_count() + turn[1] < 51:
+                            elif self._player_dict[turn[0]].get_token_p_step_count() + turn[1] < 51 and \
+                                    self._player_dict[turn[0]].get_token_q_step_count() + turn[1] < 51:
                                 current_filled = []
                                 for player in self._player_dict.values():
                                     if player.get_player_position() == turn[0]:
@@ -227,7 +231,8 @@ class LudoGame:
                                         current_filled.append(player.get_space_name(player.get_token_p_step_count()))
                                         current_filled.append(player.get_space_name(player.get_token_q_step_count()))
 
-                                if self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]) in current_filled and self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]) in current_filled:
+                                if self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]) in current_filled \
+                                        and self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]) in current_filled:
                                     if self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count():
                                         self.move_token(self._player_dict[turn[0]], "p", 6)
 
@@ -255,14 +260,16 @@ class LudoGame:
                                 else:
                                     self.move_token(self._player_dict[turn[0]], "q", 6)
 
-                    elif str(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]) == "57" or str(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]) == "57":
+                    elif str(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]) == "57" or \
+                            str(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]) == "57":
                         if str(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]) == "57":
                             self.move_token(self._player_dict[turn[0]], "p", turn[1])
 
                         elif str(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]) == "57":
                             self.move_token(self._player_dict[turn[0]], "q", turn[1])
 
-                    elif self._player_dict[turn[0]].get_token_p_step_count() + turn[1] < 51 and self._player_dict[turn[0]].get_token_q_step_count() + turn[1] < 51:
+                    elif self._player_dict[turn[0]].get_token_p_step_count() + turn[1] < 51 and \
+                            self._player_dict[turn[0]].get_token_q_step_count() + turn[1] < 51:
                         local_current_filled = []
                         for player in self._player_dict.values():
                             if player.get_player_position() == turn[0]:
@@ -271,7 +278,8 @@ class LudoGame:
                                 local_current_filled.append(player.get_space_name(player.get_token_p_step_count()))
                                 local_current_filled.append(player.get_space_name(player.get_token_q_step_count()))
 
-                        if self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]) in local_current_filled and self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]) in local_current_filled:
+                        if self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_p_step_count() + turn[1]) in local_current_filled and \
+                                self._player_dict[turn[0]].get_space_name(self._player_dict[turn[0]].get_token_q_step_count() + turn[1]) in local_current_filled:
                             if self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count():
                                 self.move_token(self._player_dict[turn[0]], "p", turn[1])
 
@@ -285,19 +293,23 @@ class LudoGame:
                             self.move_token(self._player_dict[turn[0]], "q", turn[1])
 
                         else:
-                            if self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count() and self._player_dict[turn[0]].get_token_p_step_count() >= 0:
+                            if self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count() and \
+                                    self._player_dict[turn[0]].get_token_p_step_count() >= 0:
                                 self.move_token(self._player_dict[turn[0]], "p", turn[1])
 
-                            elif self._player_dict[turn[0]].get_token_q_step_count() < self._player_dict[turn[0]].get_token_p_step_count() and self._player_dict[turn[0]].get_token_q_step_count() >= 0:
+                            elif self._player_dict[turn[0]].get_token_q_step_count() < self._player_dict[turn[0]].get_token_p_step_count() and \
+                                    self._player_dict[turn[0]].get_token_q_step_count() >= 0:
                                 self.move_token(self._player_dict[turn[0]], "q", turn[1])
 
                             else:
                                 self.move_token(self._player_dict[turn[0]], "p", turn[1])
 
-                    elif self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count() and self._player_dict[turn[0]].get_token_p_step_count() >= 0:
+                    elif self._player_dict[turn[0]].get_token_p_step_count() < self._player_dict[turn[0]].get_token_q_step_count() and \
+                            self._player_dict[turn[0]].get_token_p_step_count() >= 0:
                         self.move_token(self._player_dict[turn[0]], "p", turn[1])
 
-                    elif self._player_dict[turn[0]].get_token_q_step_count() < self._player_dict[turn[0]].get_token_p_step_count() and self._player_dict[turn[0]].get_token_q_step_count() >= 0:
+                    elif self._player_dict[turn[0]].get_token_q_step_count() < self._player_dict[turn[0]].get_token_p_step_count() and \
+                            self._player_dict[turn[0]].get_token_q_step_count() >= 0:
                         self.move_token(self._player_dict[turn[0]], "q", turn[1])
 
                     else:
@@ -310,45 +322,5 @@ class LudoGame:
         return self._final_token_locations
 
 
-#players = ['A', 'B']
-#turns = [("A", 6), ("B", 6)]
-#game = LudoGame()
-#current_tokens_space = game.play_game(players, turns)
-#player_A = game.get_player_by_position('A')
-#print(current_tokens_space)
-#print(player_A.get_completed())
-#player_B = game.get_player_by_position('B')
-#print(player_A.get_token_p_step_count())
-#print(player_A.get_token_q_step_count())
-
-#players = ['A', 'B']
-#turns = [('A', 6), ('A', 6), ('A', 1), ('A', 4), ('A', 4), ('A', 6), ('B', 6), ('B', 6), ('B', 2), ('B', 2), ('A', 6)]
-#game = LudoGame()
-#current_tokens_space = game.play_game(players, turns)
-#player_A = game.get_player_by_position('A')
-#print(current_tokens_space)
-#player_B = game.get_player_by_position('B')
-
-# Should return [5, 16, H, H]
-
-#players = ['A','B','C','D']
-#turns = [('A', 6),('A', 1),('B', 6),('B', 2),('C', 6),('C', 3),('D', 6),('D', 4)]
-#game = LudoGame()
-#current_tokens_space = game.play_game(players, turns)
-#player_A = game.get_player_by_position('A')
-#print(current_tokens_space)
-#player_B = game.get_player_by_position('B')
 
 
-#players = ['A','B']
-#turns = [('A', 6), ("A", 4), ("A", 4), ("A", 4), ("A", 6), ("A", 5), ("A", 3), ("B", 6), ("B", 2), ("A", 2), ("A", 4)]
-#game = LudoGame()
-#current_tokens_space = game.play_game(players, turns)
-#player_A = game.get_player_by_position('A')
-#player_B = game.get_player_by_position('B')
-#player_C = game.get_player_by_position('C')
-#player_D = game.get_player_by_position('D')
-#print(current_tokens_space)
-
-# [('A', 6),('A', 4),('A', 4),('A', 4),('A', 6),('A', 5),('A', 3),('B', 6),('B', 2),('A', 2),('A', 4)]
-# Should return [16, 10, H, H]
