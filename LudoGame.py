@@ -321,13 +321,13 @@ class LudoGame:
 #print(player_A.get_token_p_step_count())
 #print(player_A.get_token_q_step_count())
 
-players = ['A', 'B']
-turns = [('A', 6), ('A', 6), ('A', 1), ('A', 4), ('A', 4), ('A', 6), ('B', 6), ('B', 6), ('B', 2), ('B', 2), ('A', 6)]
-game = LudoGame()
-current_tokens_space = game.play_game(players, turns)
-player_A = game.get_player_by_position('A')
-print(current_tokens_space)
-player_B = game.get_player_by_position('B')
+#players = ['A', 'B']
+#turns = [('A', 6), ('A', 6), ('A', 1), ('A', 4), ('A', 4), ('A', 6), ('B', 6), ('B', 6), ('B', 2), ('B', 2), ('A', 6)]
+#game = LudoGame()
+#current_tokens_space = game.play_game(players, turns)
+#player_A = game.get_player_by_position('A')
+#print(current_tokens_space)
+#player_B = game.get_player_by_position('B')
 
 # Should return [5, 16, H, H]
 
