@@ -320,7 +320,3 @@ class LudoGame:
             self._final_token_locations.append(player.get_space_name(player.get_token_q_step_count()))
 
         return self._final_token_locations
-
-
-
-
