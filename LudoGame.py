@@ -137,7 +137,7 @@ class LudoGame:
             player_object.update_step_count(token_name, new_pos)
 
 
-        if 0 < new_pos + int(player_object.get_start_pos()) - 1 <= 56 and new_pos < 51:
+        if 0 < new_pos <= 56 and new_pos < 51:
             for player in self._player_dict.values():
                 if player.get_space_name(player.get_token_p_step_count()) == player_object.get_space_name(
                         new_pos) and player.get_space_name(
@@ -310,32 +310,34 @@ class LudoGame:
         return self._final_token_locations
 
 
-# players = ['A', 'B']
-# turns = [('A', 6), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 2), ('A', 6), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 5), ('A', 2), ("A", 1)]
-# game = LudoGame()
-# current_tokens_space = game.play_game(players, turns)
-# player_A = game.get_player_by_position('A')
-# print(current_tokens_space)
-# print(player_A.get_completed())
-# player_B = game.get_player_by_position('B')
+#players = ['A', 'B']
+#turns = [("A", 6), ("B", 6)]
+#game = LudoGame()
+#current_tokens_space = game.play_game(players, turns)
+#player_A = game.get_player_by_position('A')
+#print(current_tokens_space)
+#print(player_A.get_completed())
+#player_B = game.get_player_by_position('B')
+#print(player_A.get_token_p_step_count())
+#print(player_A.get_token_q_step_count())
 
-# players = ['A', 'B']
-# turns = [('A', 6), ('A', 6), ('A', 1), ('A', 4), ('A', 4), ('A', 6), ('B', 6), ('B', 6), ('B', 2), ('B', 2), ('A', 6)]
-# game = LudoGame()
-# current_tokens_space = game.play_game(players, turns)
-# player_A = game.get_player_by_position('A')
-# print(current_tokens_space)
-# player_B = game.get_player_by_position('B')
+players = ['A', 'B']
+turns = [('A', 6), ('A', 6), ('A', 1), ('A', 4), ('A', 4), ('A', 6), ('B', 6), ('B', 6), ('B', 2), ('B', 2), ('A', 6)]
+game = LudoGame()
+current_tokens_space = game.play_game(players, turns)
+player_A = game.get_player_by_position('A')
+print(current_tokens_space)
+player_B = game.get_player_by_position('B')
 
 # Should return [5, 16, H, H]
 
-#players = ['A', 'B']
-#turns = [('A', 6), ("A", 1), ("A", 6)]
-# game = LudoGame()
-# current_tokens_space = game.play_game(players, turns)
-# player_A = game.get_player_by_position('A')
-# print(current_tokens_space)
-# player_B = game.get_player_by_position('B')
+#players = ['A','B','C','D']
+#turns = [('A', 6),('A', 1),('B', 6),('B', 2),('C', 6),('C', 3),('D', 6),('D', 4)]
+#game = LudoGame()
+#current_tokens_space = game.play_game(players, turns)
+#player_A = game.get_player_by_position('A')
+#print(current_tokens_space)
+#player_B = game.get_player_by_position('B')
 
 
 #players = ['A','B']
